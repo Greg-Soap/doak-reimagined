@@ -6,10 +6,11 @@ import {
 } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
+import { Label } from "@/components/ui/label";
 
 export default function FilterBar() {
   return (
-    <aside className="w-[260px] flex flex-col  border border-input rounded-xl">
+    <aside className="w-[260px] h-fit flex flex-col  border border-input rounded-xl">
       <div className="flex justify-between items-center px-5  py-3 font-bold border-b border-input">
         Filter{" "}
         <Button variant={"outline"} size={"sm"} className="rounded-full">
@@ -29,13 +30,14 @@ function FilterAccordion() {
           <AccordionTrigger>{filter.label}</AccordionTrigger>
           <AccordionContent className="flex  flex-col gap-4">
             {filter.options.map((option, idx) => (
-              <p
-                className="flex items-center gap-[10px] text-[#656565]"
+              <Label
+                htmlFor={option}
+                className="flex cursor-pointer items-center gap-[10px] text-[#656565]"
                 key={idx}
               >
-                <Checkbox />
+                <Checkbox id={option} />
                 {option}
-              </p>
+              </Label>
             ))}
           </AccordionContent>
         </AccordionItem>

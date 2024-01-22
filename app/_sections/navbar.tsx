@@ -29,7 +29,7 @@ function Logo() {
 function Search() {
   return (
     <div className="max-w-[520px] w-full flex items-center justify-between px-4 py-1 pr-1 border border-input rounded-lg">
-      <div className="flex items-center">
+      <div className="flex items-center w-full">
         <Image src={searchIcon} alt="search" className="w-5 h-5" />
         <Input
           placeholder="Search drinks in any category"

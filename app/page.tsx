@@ -1,7 +1,6 @@
-import Image from "next/image";
 import Navbar from "./_sections/navbar";
 import { Hero } from "./_sections/hero";
-import FilterBar from "./_components/filter-bar";
+import Product from "./_sections/product";
 
 export default function Home() {
   return (
@@ -9,7 +8,7 @@ export default function Home() {
       <Navbar />
       <main className="flex min-h-screen flex-col items-center justify-between pt-[80px]">
         <Hero />
-        <FilterBar />
+        <Product />
       </main>
     </>
   );
