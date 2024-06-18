@@ -1,6 +1,7 @@
 import Navbar from "./_sections/navbar";
 import { Hero } from "./_sections/hero";
 import Product from "./_sections/product";
+import Footer from "./_sections/footer";
 
 export default function Home() {
   return (
@@ -10,6 +11,7 @@ export default function Home() {
         <Hero />
         <Product />
       </main>
+      <Footer />
     </>
   );
 }

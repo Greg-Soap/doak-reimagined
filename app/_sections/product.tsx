@@ -5,7 +5,7 @@ import { PaginationComponent } from "../_components/pagination";
 
 export default function Product() {
   return (
-    <section className="py-28 container flex  gap-10">
+    <section className="py-28 container flex gap-10">
       <FilterBar />
       <div className="flex flex-col gap-10">
         <Products />

@@ -4,6 +4,7 @@ import IconNotification from "../_components/icon-notification";
 import { Button } from "@/components/ui/button";
 import { bellIcon, cartIcon, searchIcon, userIcon } from "@/components/icons";
 import { Input } from "@/components/ui/input";
+
 export default function Navbar() {
   return (
     <header className="fixed left-0 right-0 top-0 z-50 shadow  bg-background">
