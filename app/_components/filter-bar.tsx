@@ -10,7 +10,7 @@ import { Label } from "@/components/ui/label";
 
 export default function FilterBar() {
   return (
-    <aside className="w-[260px] h-fit flex flex-col  border border-input rounded-xl">
+    <aside className="w-full lg:w-[260px] h-fit flex flex-col  border border-input rounded-xl">
       <div className="flex justify-between items-center px-5  py-3 font-bold border-b border-input">
         Filter{" "}
         <Button variant={"outline"} size={"sm"} className="rounded-full">

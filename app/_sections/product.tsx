@@ -5,9 +5,9 @@ import { PaginationComponent } from "../_components/pagination";
 
 export default function Product() {
   return (
-    <section className="py-28 container flex gap-10">
+    <section className="py-28 container flex flex-col lg:flex-row gap-10">
       <FilterBar />
-      <div className="flex flex-col gap-10">
+      <div className="flex flex-col w-full h-fit items-center gap-10">
         <Products />
         <PaginationComponent />
       </div>
@@ -17,7 +17,7 @@ export default function Product() {
 
 function Products() {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 md:gap-4 lg:gap-8">
+    <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-4 lg:gap-8">
       {product_list.map((product) => (
         <ProductCard
           key={product.id}

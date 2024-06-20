@@ -7,7 +7,7 @@ export default function Home() {
   return (
     <>
       <Navbar />
-      <main className="flex min-h-screen flex-col items-center justify-between pt-[80px]">
+      <main className="flex min-h-screen flex-col items-center justify-between pt-20">
         <Hero />
         <Product />
       </main>

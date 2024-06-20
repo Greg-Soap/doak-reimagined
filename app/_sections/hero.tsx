@@ -4,8 +4,12 @@ import Image from "next/image";
 
 export function Hero() {
   return (
-    <section className="w-full h-[630px] bg-gradient-to-r from-rose-200 via-white to-rose-200">
-      <div className="container h-full flex flex-col justify-center bg-cover bg-center bg-[url('/assets/backgrounds/hero-desktop.png')]">
+    <section
+      className="w-full h-fit -mt-10 lg:h-[630px] 
+                        
+                lg:bg-gradient-to-r from-rose-200 via-white to-rose-200"
+    >
+      <div className="container h-full flex flex-col justify-center bg-cover bg-center lg:bg-[url('/assets/backgrounds/hero-desktop.png')]">
         <div className="flex flex-col gap-7">
           <h2 className="font-bold text-[40px] max-w-[450px]">
             We give you only the best. Top notch quality services.
