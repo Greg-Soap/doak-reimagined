@@ -9,6 +9,11 @@ export default function Home() {
       <Navbar />
       <main className="flex min-h-screen flex-col items-center justify-between pt-20">
         <Hero />
+        <img
+          className="w-[90%] h-auto mt-20 lg:hidden"
+          src="assets/mobile-img.png"
+          alt=""
+        />
         <Product />
       </main>
       <Footer />

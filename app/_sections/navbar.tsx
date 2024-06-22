@@ -9,7 +9,9 @@ export default function Navbar() {
   return (
     <header className="sticky left-0 right-0 top-0 z-50 shadow bg-background">
       <nav
-        className="container mx-auto gap-y-3 grid grid-cols-3 grid-rows-2 w-full items-center justify-between bg-background px-6 py-4
+        className="container relative mx-auto gap-y-3 grid grid-cols-3 grid-rows-2 w-full items-center justify-between bg-background px-6 py-4
+
+                   md:flex 
                   
                   lg:flex"
       >
@@ -33,7 +35,11 @@ function Logo() {
 
 function Search() {
   return (
-    <div className="max-w-[520px] w-full col-span-3 flex items-center justify-between px-4 py-1 pr-1 border border-input rounded-lg">
+    <div
+      className="lg:max-w-[520px] w-full col-span-3 flex items-center justify-between px-4 py-1 pr-1 border border-input rounded-lg
+                   
+                md:max-w-[375px]"
+    >
       <div className="flex items-center w-full">
         <Image
           src={searchIcon}
@@ -55,7 +61,7 @@ function Search() {
 function NavMenu() {
   return (
     <div
-      className="flex gap-4 items-center row-span-1"
+      className="flex gap-4 items-center row-span-1 absolute right-0 md:relative"
       style={{ gridColumn: "3 / span 1", gridRow: "1 / span 1" }}
     >
       <IconNotification notification icon={bellIcon} />
