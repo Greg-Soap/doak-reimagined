@@ -25,10 +25,10 @@ export default function FilterBar() {
 function FilterAccordion() {
   return (
     <Accordion type="multiple" className="w-full">
-      {filters.map((filter, idx) => (
-        <AccordionItem value={`${idx}`} key={idx}>
+      {filters.map((filter: filterProps, idx: number) => (
+        <AccordionItem value={`${idx}`} key={idx} className="last:border-none">
           <AccordionTrigger>{filter.label}</AccordionTrigger>
-          <AccordionContent className="flex  flex-col gap-4">
+          <AccordionContent className="flex flex-col gap-4">
             {filter.options.map((option, idx) => (
               <Label
                 htmlFor={option}

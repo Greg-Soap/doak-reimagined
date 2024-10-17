@@ -4,20 +4,15 @@ import IconNotification from "../_components/icon-notification";
 import { Button } from "@/components/ui/button";
 import { bellIcon, cartIcon, searchIcon, userIcon } from "@/components/icons";
 import { Input } from "@/components/ui/input";
+import Link from "next/link";
 
 export default function Navbar() {
   return (
     <header className="sticky left-0 right-0 top-0 z-50 shadow bg-background">
-      <nav
-        className="container relative mx-auto gap-y-3 grid grid-cols-3 grid-rows-2 w-full items-center justify-between bg-background px-6 py-4
-
-                   md:flex 
-                  
-                  lg:flex"
-      >
-        <a href="/">
+      <nav className="container relative mx-auto gap-y-3 grid grid-cols-3 grid-rows-2 w-full items-center justify-between bg-background px-6 py-4 md:flex lg:flex">
+        <Link href="/">
           <Logo />
-        </a>
+        </Link>
         <Search />
         <NavMenu />
       </nav>
@@ -35,11 +30,7 @@ function Logo() {
 
 function Search() {
   return (
-    <div
-      className="lg:max-w-[520px] w-full col-span-3 flex items-center justify-between px-4 py-1 pr-1 border border-input rounded-lg
-                   
-                md:max-w-[375px]"
-    >
+    <div className="lg:max-w-[520px] w-full col-span-3 flex items-center justify-between px-4 py-1 pr-1 border border-input rounded-lg md:max-w-[375px]">
       <div className="flex items-center w-full">
         <Image
           src={searchIcon}

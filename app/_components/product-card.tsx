@@ -2,6 +2,7 @@ import Image from "next/image";
 import { Badge } from "@/components/ui/badge";
 import { IProduct } from "@/types/products";
 import { FormatNaira } from "@/utils/format-currency";
+import Link from "next/link";
 
 export default function ProductCard({
   name,
@@ -10,9 +11,13 @@ export default function ProductCard({
   badge,
   discount_price,
   price,
+  id,
 }: IProduct) {
   return (
-    <div className="flex flex-col relative bg-card rounded-xl border  overflow-hidden">
+    <Link
+      href={`/${id}`}
+      className="flex flex-col relative bg-card rounded-xl border  overflow-hidden"
+    >
       {badge && (
         <Badge
           variant={badge === "sale" ? "sale" : "seller"}
@@ -40,6 +45,6 @@ export default function ProductCard({
           )}
         </div>
       </div>
-    </div>
+    </Link>
   );
 }
