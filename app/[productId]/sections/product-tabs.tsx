@@ -22,7 +22,10 @@ export default function ProductTabs() {
           <span className="w-6 h-0.5 bg-transparent group-data-[state=active]:bg-[#FF3426]" />
         </TabsTrigger>
       </TabsList>
-      <TabsContent value="description" className="p-10 flex flex-col gap-5">
+      <TabsContent
+        value="description"
+        className="p-4 sm:p-10 flex flex-col gap-5"
+      >
         <p>
           Consectetur venenatis cursus consequat turpis ornare odio ultricies
           nisl ipsum. Arcu adipiscing erat tortor justo ac. Sed nunc dui eu

@@ -14,7 +14,7 @@ export default function SingleProduct({ params }: { params: ProductParams }) {
       <>
         <ProductInformation product={product} />
 
-        <SimilarProducts />
+        <SimilarProducts name="Similar Products" />
       </>
     );
   } else {

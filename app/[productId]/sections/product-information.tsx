@@ -21,7 +21,7 @@ export default function ProductInformation({ product }: { product: IProduct }) {
   }
 
   return (
-    <section className="flex flex-wrap gap-5 max-w-[872px] py-20">
+    <section className="container flex items-center justify-center lg:items-start lg:flex-row flex-wrap gap-5 w-full lg:max-w-[872px] py-10 md:py-20">
       <Image
         src={product.image}
         alt="Product"
@@ -30,10 +30,12 @@ export default function ProductInformation({ product }: { product: IProduct }) {
         className="rounded-[10px]"
       />
 
-      <div className="max-w-[426px] flex flex-col border gap-7 border-border bg-[#FCFCFC] rounded-[10px] px-[25px] py-[30px]">
+      <div className="w-full max-w-[426px] flex flex-col sm:border gap-7 border-border bg-[#FCFCFC] rounded-[10px] sm:px-[25px] sm:py-[30px]">
         <div className="flex flex-col">
           <p className="text-[#FF3426] text-sm font-semibold">{product.type}</p>
-          <p className="text-2xl text-primary font-semibold">{product.name}</p>
+          <p className="text-base sm:text-2xl text-primary font-semibold">
+            {product.name}
+          </p>
         </div>
 
         <div className="flex flex-col gap-[14px]">
@@ -59,26 +61,7 @@ export default function ProductInformation({ product }: { product: IProduct }) {
         <div className="flex flex-col gap-[14px]">
           <p className="text-primary font-semibold text-sm">QUANTITY:</p>
 
-          <div className="flex items-center gap-5">
-            <Button
-              variant={`default`}
-              onClick={() => setCount((c) => c - 1)}
-              disabled={count === 1 ? true : false}
-              className="text-primary bg-transparent hover:bg-transparent"
-            >
-              -
-            </Button>
-            <p className="border border-black py-[10px] px-[18px] text-primary font-semibold rounded-[5px]">
-              {count}
-            </p>
-            <Button
-              variant={`default`}
-              onClick={() => setCount((c) => c + 1)}
-              className="text-primary bg-transparent hover:bg-transparent"
-            >
-              +
-            </Button>
-          </div>
+          <QuantityControl count={count} setCount={setCount} />
         </div>
 
         <div className="flex flex-col gap-[14px]">
@@ -107,6 +90,37 @@ export default function ProductInformation({ product }: { product: IProduct }) {
 
       <ProductTabs />
     </section>
+  );
+}
+
+export function QuantityControl({
+  count,
+  setCount,
+}: {
+  count: number;
+  setCount: (count: number) => void;
+}) {
+  return (
+    <div className="flex items-center gap-5">
+      <Button
+        variant={`default`}
+        onClick={() => setCount(count - 1)}
+        disabled={count === 1}
+        className="text-primary bg-transparent hover:bg-transparent"
+      >
+        -
+      </Button>
+      <p className="border border-black py-[10px] px-[18px] text-primary font-semibold rounded-[5px]">
+        {count}
+      </p>
+      <Button
+        variant={`default`}
+        onClick={() => setCount(count + 1)}
+        className="text-primary bg-transparent hover:bg-transparent"
+      >
+        +
+      </Button>
+    </div>
   );
 }
 
