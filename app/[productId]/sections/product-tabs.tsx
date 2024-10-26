@@ -7,20 +7,9 @@ export default function ProductTabs() {
       className="min-w-full border border-border rounded-[10px]"
     >
       <TabsList className="border-b border-border w-full rounded-b-none bg-transparent py-7">
-        <TabsTrigger
-          value="description"
-          className="w-1/2 flex flex-col text-center text-xs text-secondary font-bold data-[state=active]:bg-transparent data-[state=active]:shadow-none data-[state=active]:text-primary group"
-        >
-          DESCRIPTION
-          <span className="w-6 h-0.5 bg-transparent group-data-[state=active]:bg-[#FF3426]" />
-        </TabsTrigger>
-        <TabsTrigger
-          value="product-details"
-          className="w-1/2 flex flex-col text-center text-xs text-secondary font-bold data-[state=active]:bg-transparent data-[state=active]:shadow-none data-[state=active]:text-primary group"
-        >
-          PRODUCT DETAILS
-          <span className="w-6 h-0.5 bg-transparent group-data-[state=active]:bg-[#FF3426]" />
-        </TabsTrigger>
+        {tabTriggers.map((item: TabTriggers, index: number) => (
+          <CustomTabTriggers key={index} name={item.name} value={item.value} />
+        ))}
       </TabsList>
       <TabsContent
         value="description"
@@ -46,4 +35,32 @@ export default function ProductTabs() {
       </TabsContent>
     </Tabs>
   );
+}
+
+export function CustomTabTriggers({ value, name, className }: TabProps) {
+  return (
+    <TabsTrigger
+      value={value}
+      className={`${
+        className ? className : "w-1/2"
+      } flex flex-col text-center text-xs text-secondary font-bold data-[state=active]:bg-transparent data-[state=active]:shadow-none data-[state=active]:text-primary group`}
+    >
+      {name}
+      <span className="w-6 h-0.5 bg-transparent group-data-[state=active]:bg-[#FF3426]" />
+    </TabsTrigger>
+  );
+}
+
+const tabTriggers: TabTriggers[] = [
+  { name: "DESCRIPTION", value: "description" },
+  { name: "PRODUCT DETAILS", value: "product-details" },
+];
+
+interface TabTriggers {
+  name: string;
+  value: string;
+}
+
+interface TabProps extends TabTriggers {
+  className?: string;
 }

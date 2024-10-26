@@ -13,7 +13,7 @@ export default function SimilarProducts({
 }) {
   return (
     <section className="container w-full py-20 border-t border-border flex flex-col gap-10">
-      <p className="text-[32px] font-bold text-primary">{name}</p>
+      <p className="text-2xl md:text-[32px] font-bold text-primary">{name}</p>
 
       <div className="flex flex-col gap-5 items-center">
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5">
