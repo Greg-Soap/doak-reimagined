@@ -1,4 +1,4 @@
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Tabs, TabsContent, TabsList } from "@/components/ui/tabs";
 import { CustomTabTriggers } from "@/app/[productId]/sections/product-tabs";
 import DeliveryTab from "./delivery-tab";
 
