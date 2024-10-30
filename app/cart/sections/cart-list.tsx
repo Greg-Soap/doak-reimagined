@@ -32,6 +32,7 @@ export default function ShoppingCart() {
 
 function CartTable() {
   const [count, setCount] = useState<number>(1);
+  
   return (
     <div className="col-span-4 lg:col-span-3 md:border border-border md:rounded-[10px] px-2 md:px-0">
       <Table className="w-full">
