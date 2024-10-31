@@ -140,13 +140,12 @@ function ShadcnFormField({ form, data }: ComponentProps) {
           {data.name === "state" ? (
             <Select
               onValueChange={field.onChange}
-              //defaultValue={field.value.toString()}
               value={field.value.toString()}
             >
               <FormControl>
                 <SelectTrigger
                   ref={field.ref}
-                  className="border-border py-[10px] px-[14px] h-[41px]"
+                  className="border-border py-[10px] px-[14px] h-[41px] text-primary font-medium"
                 >
                   <SelectValue placeholder={data.placeholder} />
                 </SelectTrigger>
