@@ -1,0 +1,43 @@
+export const states = [
+  { value: "abia", name: "Abia State" },
+  { value: "adamawa", name: "Adamawa State" },
+  { value: "akwa-ibom", name: "Akwa Ibom State" },
+  { value: "anambra", name: "Anambra State" },
+  { value: "bauchi", name: "Bauchi State" },
+  { value: "bayelsa", name: "Bayelsa State" },
+  { value: "benue", name: "Benue State" },
+  { value: "borno", name: "Borno State" },
+  { value: "cross-river", name: "Cross River State" },
+  { value: "delta", name: "Delta State" },
+  { value: "ebonyi", name: "Ebonyi State" },
+  { value: "edo", name: "Edo State" },
+  { value: "ekiti", name: "Ekiti State" },
+  { value: "enugu", name: "Enugu State" },
+  { value: "gombe", name: "Gombe State" },
+  { value: "imo", name: "Imo State" },
+  { value: "jigawa", name: "Jigawa State" },
+  { value: "kaduna", name: "Kaduna State" },
+  { value: "kano", name: "Kano State" },
+  { value: "katsina", name: "Katsina State" },
+  { value: "kebbi", name: "Kebbi State" },
+  { value: "kogi", name: "Kogi State" },
+  { value: "kwara", name: "Kwara State" },
+  { value: "lagos", name: "Lagos State" },
+  { value: "nasarawa", name: "Nasarawa State" },
+  { value: "niger", name: "Niger State" },
+  { value: "ogun", name: "Ogun State" },
+  { value: "ondo", name: "Ondo State" },
+  { value: "osun", name: "Osun State" },
+  { value: "oyo", name: "Oyo State" },
+  { value: "plateau", name: "Plateau State" },
+  { value: "rivers", name: "Rivers State" },
+  { value: "sokoto", name: "Sokoto State" },
+  { value: "taraba", name: "Taraba State" },
+  { value: "yobe", name: "Yobe State" },
+  { value: "zamfara", name: "Zamfara State" },
+];
+
+export interface States {
+  value: string;
+  name: string;
+}

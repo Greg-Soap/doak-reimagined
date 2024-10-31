@@ -21,7 +21,7 @@ export default function CartSummary({ type }: { type?: "checkout" }) {
 
       <div
         className={`${
-          type ? "flex px-5 w-[90%] ml-[5%]" : "hidden"
+          type ? "flex px-5 w-[90%] ml-[5%] sm:w-full sm:ml-[0%]" : "hidden"
         } col-span-4 lg:col-span-1 md:flex flex-col border border-border p-4 pt-6 rounded-[10px]  gap-6 h-fit`}
       >
         <p

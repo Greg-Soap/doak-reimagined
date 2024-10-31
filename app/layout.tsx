@@ -26,7 +26,7 @@ export default function RootLayout({
       <body>
         <Navbar />
 
-        <main className="flex min-h-screen flex-col items-center justify-between">
+        <main className="flex min-h-fit flex-col items-center justify-between">
           {children}
         </main>
 
