@@ -1,6 +1,8 @@
 import { Tabs, TabsContent, TabsList } from "@/components/ui/tabs";
 import { CustomTabTriggers } from "@/app/[productId]/sections/product-tabs";
 import DeliveryTab from "./delivery-tab";
+import SummaryTab from "./summary-tab";
+import PaymentTab from "./payment-tab";
 
 export default function CheckoutTab() {
   return (
@@ -19,17 +21,20 @@ export default function CheckoutTab() {
             />
           ))}
         </TabsList>
-        <TabsContent
-          value="delivery"
-          className="py-4 sm:py-10 flex flex-col gap-7 items-center"
-        >
-          <DeliveryTab />
+        <TabsContent value="delivery">
+          <div className="py-4 sm:py-10 flex flex-col gap-7 items-center w-full">
+            <DeliveryTab />
+          </div>
         </TabsContent>
-        <TabsContent value="summary" className="p-10">
-          Change your password here.
+        <TabsContent value="summary">
+          <div className="p-5 sm:p-10 flex flex-col gap-7 items-center w-full">
+            <SummaryTab />
+          </div>
         </TabsContent>
-        <TabsContent value="payment" className="p-10">
-          Change your password here.
+        <TabsContent value="payment">
+          <div className="p-5 sm:px-10 sm:py-8 flex flex-col gap-7 items-center w-full">
+            <PaymentTab />
+          </div>
         </TabsContent>
       </Tabs>
     </div>

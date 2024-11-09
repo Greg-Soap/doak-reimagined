@@ -15,6 +15,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import EditDialog from "../components/edit-dialog";
+import { street } from "@/app/data/address";
 
 const FormSchema = z.object({
   address: z.enum(["option-one", "option-two"], {
@@ -40,12 +41,17 @@ export default function DeliveryTab() {
         onSubmit={form.handleSubmit(onSubmit)}
         className="flex flex-col items-center gap-10 w-full"
       >
-        <DeliveryTabSection
-          name="Street Address"
-          formName="address"
-          form={form}
-          data={street}
-        />
+        {street.length === 0 ? (
+          <EmptyState />
+        ) : (
+          <DeliveryTabSection
+            name="Street Address"
+            formName="address"
+            form={form}
+            data={street}
+          />
+        )}
+
         <DeliveryTabSection
           name="Select Delivery Method"
           formName="type"
@@ -66,6 +72,19 @@ export default function DeliveryTab() {
   );
 }
 
+function EmptyState() {
+  return (
+    <div className="flex flex-col items-center gap-5 w-full">
+      <p className="text-[#9B9B9B] text-[15px]">
+        -You do not have an address saved-
+      </p>
+      <Button className="w-full sm:w-fit text-[#FF3426] font-medium text-sm border-2 bg-transparent hover:bg-transparent py-[10px] px-[14px] border-border rounded-[5px] shadow-none">
+        + Add New Address
+      </Button>
+    </div>
+  );
+}
+
 function DeliveryTabSection({
   type,
   formName,
@@ -83,7 +102,7 @@ function DeliveryTabSection({
         <FormItem
           className={`${
             type ? "pt-10 border-t w-full px-[5%]" : "w-[90%]"
-          } border-[#C5C5C5] space-y-3`}
+          } border-border space-y-3`}
         >
           <FormLabel className={`text-lg text-primary font-semibold w-[90%]`}>
             {name}
@@ -96,7 +115,7 @@ function DeliveryTabSection({
               }}
               className="flex flex-col space-y-1"
             >
-              {data.map((item: Street) => (
+              {data.map((item) => (
                 <FormItem className="flex space-x-5 space-y-0" key={item.value}>
                   <FormControl>
                     <RadioGroupItem value={item.value} className="mt-3" />
@@ -112,29 +131,40 @@ function DeliveryTabSection({
                       <p className="text-primary font-semibold text-sm">
                         {type ? item.type : item.name}
                       </p>
-                      <p className={type ? "hidden" : "text-primary text-sm"}>
-                        {item.address + ", " + item.city + ", " + item.state}
-                      </p>
-                      <p className={type ? "text-primary text-sm" : "hidden"}>
-                        {item.type === "Door delivery"
-                          ? "To be delivered between"
-                          : "Available for pickup between"}{" "}
-                        <span className="font-semibold">{item.dates?.[0]}</span>{" "}
-                        and{" "}
-                        <span className="font-semibold">{item.dates?.[1]}</span>{" "}
-                        {item.time && (
-                          <>
-                            from{" "}
-                            <span className="font-semibold">
-                              {item.time[0]}
-                            </span>{" "}
-                            to{" "}
-                            <span className="font-semibold">
-                              {item.time[1]}
-                            </span>
-                          </>
-                        )}
-                      </p>
+
+                      {!type && (
+                        <p className="text-primary text-sm">
+                          {`${item.address}, ${item.city}, ${item.state}`}
+                        </p>
+                      )}
+
+                      {type && (
+                        <p className="text-primary text-sm">
+                          {item.type === "Door delivery"
+                            ? "To be delivered between"
+                            : "Available for pickup between"}{" "}
+                          <span className="font-semibold">
+                            {item.dates?.[0]}
+                          </span>{" "}
+                          and{" "}
+                          <span className="font-semibold">
+                            {item.dates?.[1]}
+                          </span>
+                          {item.time && (
+                            <>
+                              {" from "}
+                              <span className="font-semibold">
+                                {item.time[0]}
+                              </span>{" "}
+                              to{" "}
+                              <span className="font-semibold">
+                                {item.time[1]}
+                              </span>
+                            </>
+                          )}
+                        </p>
+                      )}
+
                       <p
                         className={`${
                           type
@@ -142,23 +172,19 @@ function DeliveryTabSection({
                             : "text-primary text-sm"
                         }`}
                       >
-                        {type ? item.price : "+" + item.number}
+                        {type ? item.price : `+${item.number}`}
                       </p>
                     </div>
 
-                    <EditDialog type={type} selectedAddress={item} />
+                    <EditDialog
+                      isNotAddress={type}
+                      type="edit-address"
+                      selectedAddress={item}
+                    />
                   </FormLabel>
                 </FormItem>
               ))}
-              <Button
-                type="button"
-                variant="default"
-                className={`${
-                  type ? "hidden" : "flex"
-                } w-fit text-[#FF3426] font-medium text-sm border-2 bg-transparent hover:bg-transparent shadow-none ml-9 mt-[-16px] py-[10px] px-[14px] border-[#C5C5C5]`}
-              >
-                Add New Address
-              </Button>
+              <EditDialog isNotAddress={type} type="new-address" />
             </RadioGroup>
           </FormControl>
           <FormMessage />
@@ -168,26 +194,7 @@ function DeliveryTabSection({
   );
 }
 
-const street: Street[] = [
-  {
-    value: "option-one",
-    name: "Omonaluse Ohkuehne",
-    address: "No 14, 19th street BDPA, Ugbowo",
-    city: "Benin City",
-    state: "Oyo State",
-    number: 2348180281937,
-  },
-  {
-    value: "option-two",
-    name: "Chukwufumnanya Ochei",
-    address: "No 5, Emerald street Suncity Estate, Ikate",
-    city: "Lekki-Ajah",
-    state: "Lagos State",
-    number: 2349030383868,
-  },
-];
-
-const method: Street[] = [
+const method: Method[] = [
   {
     value: "delivery",
     type: "Door delivery",
@@ -203,7 +210,15 @@ const method: Street[] = [
   },
 ];
 
-export interface Street {
+interface Method {
+  value: "delivery" | "pickup";
+  type: "Door delivery" | "Pickup";
+  dates: string[];
+  time?: string[];
+  price: string;
+}
+
+export interface ModifiedStreet {
   value: string;
   name?: string;
   address?: string;
@@ -220,6 +235,6 @@ interface DeliveryTabProp {
   type?: boolean;
   formName: "address" | "type";
   name: string;
-  data: Street[];
+  data: ModifiedStreet[];
   form: UseFormReturn<z.infer<typeof FormSchema>>;
 }

@@ -31,7 +31,7 @@ import {
   SelectGroup,
 } from "@/components/ui/select";
 import { States, states } from "@/app/data/states";
-import { Street } from "../sections/delivery-tab";
+import { ModifiedStreet } from "../sections/delivery-tab";
 import { useState } from "react";
 
 const formSchema = z.object({
@@ -58,20 +58,22 @@ const formSchema = z.object({
 });
 
 export default function EditDialog({
+  isNotAddress,
   type,
   selectedAddress,
 }: {
-  type?: boolean;
-  selectedAddress: Street;
+  isNotAddress?: boolean;
+  type: "new-address" | "edit-address";
+  selectedAddress?: ModifiedStreet;
 }) {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name: selectedAddress.name,
-      number: selectedAddress.number,
-      address: selectedAddress.address,
-      city: selectedAddress.city,
-      state: selectedAddress.state,
+      name: selectedAddress ? selectedAddress.name : "",
+      number: selectedAddress ? selectedAddress.number : undefined,
+      address: selectedAddress ? selectedAddress.address : "",
+      city: selectedAddress ? selectedAddress.city : "",
+      state: selectedAddress ? selectedAddress.state : "",
     },
   });
 
@@ -85,16 +87,18 @@ export default function EditDialog({
     <Dialog>
       <DialogTrigger
         type="button"
-        className={`${
-          type ? "hidden" : "flex"
-        } p-2 rounded-[4px] hover:bg-transparent bg-transparent text-sm text-[#FF3426] shadow-none`}
+        className={`${isNotAddress ? "hidden" : "flex"} ${
+          type === "edit-address"
+            ? "p-2 rounded-[4px] hover:bg-transparent bg-transparent text-sm text-[#FF3426]"
+            : "w-fit text-[#FF3426] font-medium text-sm border-2 bg-transparent hover:bg-transparent ml-9 -mt-4 py-[10px] px-[14px] border-border rounded-[5px]"
+        }  shadow-none`}
       >
-        Edit
+        {type === "edit-address" ? "Edit" : "+ Add New Address"}
       </DialogTrigger>
       <DialogContent className="border-none p-8 flex flex-col gap-6 rounded-[10px]">
         <DialogHeader>
           <DialogTitle className="text-primary text-xl font-medium">
-            Edit Address
+            {type === "edit-address" ? "Edit Address" : "Add New Address"}
           </DialogTitle>
           <DialogDescription>
             <Form {...form}>
@@ -104,7 +108,7 @@ export default function EditDialog({
                 className="grid lg:grid-cols-2 gap-5"
               >
                 {fields.map((item: Fields) => (
-                  <ShadcnFormField form={form} data={item} />
+                  <ShadcnFormField key={item.name} form={form} data={item} />
                 ))}
                 <Button
                   variant={`black`}
@@ -112,7 +116,7 @@ export default function EditDialog({
                   className="py-[10px] px-[18px] max-w-fit"
                   disabled={!isChanged}
                 >
-                  Save
+                  {type === "edit-address" ? "Save" : "Save Address"}
                 </Button>
               </form>
             </Form>
@@ -195,7 +199,7 @@ const fields: Fields[] = [
     name: "number",
     type: "small",
     label: "Phone Number",
-    placeholder: "+2341234567890",
+    placeholder: "eg. +2341234567890",
   },
   {
     name: "address",
