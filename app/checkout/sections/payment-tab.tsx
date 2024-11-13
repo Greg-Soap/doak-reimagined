@@ -1,4 +1,8 @@
+import Cards from "@/components/icons/cards";
+import PaypalIcon from "@/components/icons/paypal";
+import SendMoneyIcon from "@/components/icons/send-money";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { ReactElement } from "react";
 
 export default function PaymentTab() {
   return (
@@ -12,8 +16,9 @@ export default function PaymentTab() {
             <TabsTrigger
               key={item.name}
               value={item.name}
-              className="text-[10px] text-border border border-border w-[88px] h-[76px] rounded-[5px] data-[state=active]:border-2 data-[state=active]:border-black data-[state=active]:text-black data-[state=active]:font-medium data-[state=active]:shadow-none transition-all duration-300"
+              className=" flex flex-col gap-2 text-[10px] text-border border border-border w-[88px] h-[76px] rounded-[5px] data-[state=active]:border-2 data-[state=active]:border-black data-[state=active]:text-black data-[state=active]:font-medium data-[state=active]:shadow-none transition-all duration-300 group"
             >
+              {item.icon}
               {item.label}
             </TabsTrigger>
           ))}
@@ -37,12 +42,31 @@ function CardTab() {
 }
 
 const paymentMethods: PaymentMethod[] = [
-  { name: "card", label: "Pay with Card" },
-  { name: "transfer", label: "Transfer/USSD" },
-  { name: "paypal", label: "Paypal" },
+  {
+    name: "card",
+    label: "Pay with Card",
+    icon: (
+      <Cards className="w-8 h-8 stroke-border group-data-[state=active]:stroke-black transition-all duration-300" />
+    ),
+  },
+  {
+    name: "transfer",
+    label: "Transfer/USSD",
+    icon: (
+      <SendMoneyIcon className="w-8 h-8 stroke-border group-data-[state=active]:stroke-black transition-all duration-300" />
+    ),
+  },
+  {
+    name: "paypal",
+    label: "Paypal",
+    icon: (
+      <PaypalIcon className="w-8 h-8 fill-border group-data-[state=active]:fill-black transition-all duration-300" />
+    ),
+  },
 ];
 
 interface PaymentMethod {
+  icon: ReactElement;
   name: "card" | "transfer" | "paypal";
   label: string;
 }
