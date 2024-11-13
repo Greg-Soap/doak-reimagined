@@ -3,6 +3,7 @@ import PaypalIcon from "@/components/icons/paypal";
 import SendMoneyIcon from "@/components/icons/send-money";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ReactElement } from "react";
+import CardPaymentTab from "./payment-tabs/card-payment";
 
 export default function PaymentTab() {
   return (
@@ -23,8 +24,8 @@ export default function PaymentTab() {
             </TabsTrigger>
           ))}
         </TabsList>
-        <TabsContent value="card">
-          <p>Helo</p>
+        <TabsContent value="card" className="w-full">
+          <CardPaymentTab />
         </TabsContent>
         <TabsContent value="transfer">
           <p>Helo</p>
@@ -37,9 +38,14 @@ export default function PaymentTab() {
   );
 }
 
-function CardTab() {
-  return <></>;
-}
+// function CardTab() {
+//   return (
+//     <div className="flex flex-col gap-10 min-w-full">
+//       <p className="text-primary font-medium text-lg">Card Payment</p>
+
+//     </div>
+//   );
+// }
 
 const paymentMethods: PaymentMethod[] = [
   {
