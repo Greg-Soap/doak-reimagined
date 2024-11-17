@@ -4,20 +4,21 @@ import SendMoneyIcon from "@/components/icons/send-money";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ReactElement } from "react";
 import CardPaymentTab from "./payment-tabs/card-payment";
+import TransferTab from "./payment-tabs/transfer";
 
 export default function PaymentTab() {
   return (
     <>
       <Tabs
         defaultValue="card"
-        className="w-full flex flex-col justify-center items-center gap-20"
+        className="w-full flex flex-col justify-center items-center gap-10"
       >
         <TabsList className="w-fit h-fit gap-5 p-0 bg-transparent">
           {paymentMethods.map((item: PaymentMethod) => (
             <TabsTrigger
               key={item.name}
               value={item.name}
-              className=" flex flex-col gap-2 text-[10px] text-border border border-border w-[88px] h-[76px] rounded-[5px] data-[state=active]:border-2 data-[state=active]:border-black data-[state=active]:text-black data-[state=active]:font-medium data-[state=active]:shadow-none transition-all duration-300 group"
+              className=" flex flex-col gap-2 text-[10px] text-border border border-border w-[88px] h-[76px] rounded-[5px] data-[state=active]:border-black data-[state=active]:text-black data-[state=active]:font-medium data-[state=active]:shadow-none transition-all duration-300 group"
             >
               {item.icon}
               {item.label}
@@ -25,10 +26,14 @@ export default function PaymentTab() {
           ))}
         </TabsList>
         <TabsContent value="card" className="w-full">
-          <CardPaymentTab />
+          <div className="w-full h-fit flex">
+            <CardPaymentTab />
+          </div>
         </TabsContent>
         <TabsContent value="transfer">
-          <p>Helo</p>
+          <div className="w-full h-fit flex">
+            <TransferTab />
+          </div>
         </TabsContent>
         <TabsContent value="paypal">
           <p>Helo</p>
@@ -37,15 +42,6 @@ export default function PaymentTab() {
     </>
   );
 }
-
-// function CardTab() {
-//   return (
-//     <div className="flex flex-col gap-10 min-w-full">
-//       <p className="text-primary font-medium text-lg">Card Payment</p>
-
-//     </div>
-//   );
-// }
 
 const paymentMethods: PaymentMethod[] = [
   {
