@@ -58,11 +58,9 @@ const formSchema = z.object({
 });
 
 export default function EditDialog({
-  isNotAddress,
   type,
   selectedAddress,
 }: {
-  isNotAddress?: boolean;
   type: "new-address" | "edit-address";
   selectedAddress?: ModifiedStreet;
 }) {
@@ -73,7 +71,7 @@ export default function EditDialog({
       number: selectedAddress ? selectedAddress.number : undefined,
       address: selectedAddress ? selectedAddress.address : "",
       city: selectedAddress ? selectedAddress.city : "",
-      state: selectedAddress ? selectedAddress.state : "",
+      state: selectedAddress ? selectedAddress.state?.toLocaleLowerCase() : "",
     },
   });
 
@@ -87,7 +85,7 @@ export default function EditDialog({
     <Dialog>
       <DialogTrigger
         type="button"
-        className={`${isNotAddress ? "hidden" : "flex"} ${
+        className={`flex ${
           type === "edit-address"
             ? "p-2 rounded-[4px] hover:bg-transparent bg-transparent text-sm text-[#FF3426]"
             : "w-fit text-[#FF3426] font-medium text-sm border-2 bg-transparent hover:bg-transparent ml-9 -mt-4 py-[10px] px-[14px] border-border rounded-[5px]"
@@ -107,9 +105,129 @@ export default function EditDialog({
                 onChange={() => setIsChanged(true)}
                 className="grid lg:grid-cols-2 gap-5"
               >
-                {fields.map((item: Fields) => (
-                  <ShadcnFormField key={item.name} form={form} data={item} />
-                ))}
+                <FormField
+                  control={form.control}
+                  name={`name`}
+                  render={({ field }) => (
+                    <FormItem
+                      className={`col-span-1 flex flex-col justify-start`}
+                    >
+                      <FormLabel className="text-xs text-primary font-medium max-w-fit">
+                        Name
+                      </FormLabel>
+                      <FormControl>
+                        <Input
+                          placeholder="eg. John Doe"
+                          {...field}
+                          className="border border-border rounded-[5px] py-[10px] px-[14px] bg-transparent text-primary text-sm font-medium w-full h-[41px]"
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name={`number`}
+                  render={({ field }) => (
+                    <FormItem
+                      className={`col-span-1 flex flex-col justify-start`}
+                    >
+                      <FormLabel className="text-xs text-primary font-medium max-w-fit">
+                        Phone Number
+                      </FormLabel>
+                      <FormControl>
+                        <Input
+                          type="number"
+                          placeholder="eg. 2341234567890"
+                          {...field}
+                          className="border border-border rounded-[5px] py-[10px] px-[14px] bg-transparent text-primary text-sm font-medium w-full h-[41px]"
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name={`address`}
+                  render={({ field }) => (
+                    <FormItem
+                      className={`col-span-2 flex flex-col justify-start`}
+                    >
+                      <FormLabel className="text-xs text-primary font-medium max-w-fit">
+                        Address
+                      </FormLabel>
+                      <FormControl>
+                        <Textarea
+                          placeholder="eg. No 14, 19th street BDPA, Ugbowo"
+                          className="resize-none border border-border rounded-[5px] col-span-2 py-[10px] px-[14px] text-sm text-primary font-medium w-full h-[83px]"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name={`city`}
+                  render={({ field }) => (
+                    <FormItem
+                      className={`col-span-1 flex flex-col justify-start`}
+                    >
+                      <FormLabel className="text-xs text-primary font-medium max-w-fit">
+                        City / Town
+                      </FormLabel>
+                      <FormControl>
+                        <Input
+                          placeholder="eg. 2341234567890"
+                          {...field}
+                          className="border border-border rounded-[5px] py-[10px] px-[14px] bg-transparent text-primary text-sm font-medium w-full h-[41px]"
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name={`state`}
+                  render={({ field }) => (
+                    <FormItem
+                      className={`col-span-1 flex flex-col justify-start`}
+                    >
+                      <FormLabel className="text-xs text-primary font-medium max-w-fit">
+                        State
+                      </FormLabel>
+                      <Select
+                        value={field.value}
+                        onValueChange={field.onChange}
+                      >
+                        <FormControl>
+                          <SelectTrigger className="border-border py-[10px] px-[14px] h-[41px] text-primary font-medium">
+                            <SelectValue placeholder="eg. Oyo State" />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          <SelectGroup>
+                            {states.map((state: States) => (
+                              <SelectItem
+                                key={state.value}
+                                value={state.value}
+                                className="hover:bg-slate-100"
+                              >
+                                {state.name}
+                              </SelectItem>
+                            ))}
+                          </SelectGroup>
+                        </SelectContent>
+                      </Select>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
                 <Button
                   variant={`black`}
                   type="submit"
@@ -125,105 +243,4 @@ export default function EditDialog({
       </DialogContent>
     </Dialog>
   );
-}
-
-function ShadcnFormField({ form, data }: ComponentProps) {
-  return (
-    <FormField
-      control={form.control}
-      name={data.name}
-      render={({ field }) => (
-        <FormItem
-          className={`${
-            data.type === "small" ? "col-span-1" : "lg:col-span-2"
-          } flex flex-col justify-start`}
-        >
-          <FormLabel className="text-xs text-primary font-medium max-w-fit">
-            {data.label}
-          </FormLabel>
-          {data.name === "state" ? (
-            <Select
-              onValueChange={field.onChange}
-              value={field.value.toString()}
-            >
-              <FormControl>
-                <SelectTrigger
-                  ref={field.ref}
-                  className="border-border py-[10px] px-[14px] h-[41px] text-primary font-medium"
-                >
-                  <SelectValue placeholder={data.placeholder} />
-                </SelectTrigger>
-              </FormControl>
-              <SelectContent>
-                <SelectGroup>
-                  {states.map((state: States) => (
-                    <SelectItem
-                      key={state.value}
-                      value={state.value}
-                      className="hover:bg-slate-100"
-                    >
-                      {state.name}
-                    </SelectItem>
-                  ))}
-                </SelectGroup>
-              </SelectContent>
-            </Select>
-          ) : (
-            <FormControl>
-              {data.name === "address" ? (
-                <Textarea
-                  placeholder={data.placeholder}
-                  className="resize-none border border-border rounded-[5px] col-span-2 py-[10px] px-[14px] text-sm text-primary font-medium w-full h-[83px]"
-                  {...field}
-                />
-              ) : (
-                <Input
-                  type={data.name === "number" ? "number" : "text"}
-                  placeholder={data.placeholder}
-                  {...field}
-                  className="border border-border rounded-[5px] py-[10px] px-[14px] bg-transparent text-primary text-sm font-medium w-full h-[41px]"
-                />
-              )}
-            </FormControl>
-          )}
-          <FormMessage />
-        </FormItem>
-      )}
-    />
-  );
-}
-
-const fields: Fields[] = [
-  { name: "name", type: "small", label: "Name", placeholder: "eg. John Doe" },
-  {
-    name: "number",
-    type: "small",
-    label: "Phone Number",
-    placeholder: "eg. +2341234567890",
-  },
-  {
-    name: "address",
-    type: "address",
-    label: "Address",
-    placeholder: "eg. No 14, 19th street BDPA, Ugbowo",
-  },
-  { name: "city", type: "small", label: "City/Town", placeholder: "eg. Tanke" },
-  {
-    name: "state",
-    type: "small",
-    label: "State",
-    placeholder: "eg. Oyo State",
-  },
-];
-
-interface Fields {
-  name: "name" | "number" | "address" | "city" | "state";
-  type: "small" | "address";
-  label: string;
-  placeholder: string;
-}
-
-interface ComponentProps {
-  form: UseFormReturn<z.infer<typeof formSchema>>;
-  data: Fields;
 }

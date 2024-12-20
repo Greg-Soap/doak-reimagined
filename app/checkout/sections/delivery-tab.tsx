@@ -26,13 +26,18 @@ const FormSchema = z.object({
   }),
 });
 
-export default function DeliveryTab() {
+export default function DeliveryTab({
+  setActiveTab,
+}: {
+  setActiveTab: (activeTab: string) => void;
+}) {
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
   });
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
     console.log(data);
+    setActiveTab("summary");
   }
 
   return (
@@ -44,7 +49,7 @@ export default function DeliveryTab() {
         {street.length === 0 ? (
           <EmptyState />
         ) : (
-          <DeliveryTabSection
+          <StreetSection
             name="Street Address"
             formName="address"
             form={form}
@@ -52,11 +57,10 @@ export default function DeliveryTab() {
           />
         )}
 
-        <DeliveryTabSection
+        <DeliveryMethodSection
           name="Select Delivery Method"
           formName="type"
           form={form}
-          type
           data={method}
         />
 
@@ -85,8 +89,67 @@ function EmptyState() {
   );
 }
 
-function DeliveryTabSection({
-  type,
+function StreetSection({ formName, name, data, form }: DeliveryTabProp) {
+  const [selectedValue, setSelectedValue] = useState<string>("");
+
+  return (
+    <FormField
+      control={form.control}
+      name={formName}
+      render={({ field }) => (
+        <FormItem className={`w-[90%] border-border space-y-3`}>
+          <FormLabel className={`text-lg text-primary font-semibold w-[90%]`}>
+            {name}
+          </FormLabel>
+          <FormControl className="w-[95%] ml-[2.5%]">
+            <RadioGroup
+              onValueChange={(value) => {
+                field.onChange(value);
+                setSelectedValue(value);
+              }}
+              className="flex flex-col space-y-1"
+            >
+              {data.map((item) => (
+                <FormItem className="flex space-x-5 space-y-0" key={item.value}>
+                  <FormControl>
+                    <RadioGroupItem value={item.value} className="mt-3" />
+                  </FormControl>
+                  <FormLabel
+                    className={`flex w-full items-end sm:items-center justify-between border ${
+                      selectedValue === item.value
+                        ? "border-primary"
+                        : "border-[#C5C5C5]"
+                    } rounded-[10px] py-3 pl-[18px] pr-7 data-[state=selected]:border-[#FF3426] transition-all duration-300`}
+                  >
+                    <div className="flex flex-col gap-2">
+                      <p className="text-primary font-semibold text-sm">
+                        {item.name}
+                      </p>
+
+                      <p className="text-primary text-sm">
+                        {`${item.address}, ${item.city}, ${item.state} State`}
+                      </p>
+
+                      <p className="text-primary text-sm">
+                        {`+${item.number}`}
+                      </p>
+                    </div>
+
+                    <EditDialog type="edit-address" selectedAddress={item} />
+                  </FormLabel>
+                </FormItem>
+              ))}
+              <EditDialog type="new-address" />
+            </RadioGroup>
+          </FormControl>
+          <FormMessage />
+        </FormItem>
+      )}
+    />
+  );
+}
+
+function DeliveryMethodSection({
   formName,
   name,
   data,
@@ -100,9 +163,7 @@ function DeliveryTabSection({
       name={formName}
       render={({ field }) => (
         <FormItem
-          className={`${
-            type ? "pt-10 border-t w-full px-[5%]" : "w-[90%]"
-          } border-border space-y-3`}
+          className={`pt-10 border-t w-full px-[5%] border-border space-y-3`}
         >
           <FormLabel className={`text-lg text-primary font-semibold w-[90%]`}>
             {name}
@@ -129,62 +190,27 @@ function DeliveryTabSection({
                   >
                     <div className="flex flex-col gap-2">
                       <p className="text-primary font-semibold text-sm">
-                        {type ? item.type : item.name}
+                        {item.type}
                       </p>
 
-                      {!type && (
-                        <p className="text-primary text-sm">
-                          {`${item.address}, ${item.city}, ${item.state}`}
-                        </p>
-                      )}
+                      <p className="text-primary text-sm">
+                        Available for pickup between{" "}
+                        <span className="font-semibold">{item.dates?.[0]}</span>{" "}
+                        and{" "}
+                        <span className="font-semibold">{item.dates?.[1]}</span>{" "}
+                        from{" "}
+                        <span className="font-semibold">{item.time?.[0]}</span>{" "}
+                        to{" "}
+                        <span className="font-semibold">{item.time?.[1]}</span>
+                      </p>
 
-                      {type && (
-                        <p className="text-primary text-sm">
-                          {item.type === "Door delivery"
-                            ? "To be delivered between"
-                            : "Available for pickup between"}{" "}
-                          <span className="font-semibold">
-                            {item.dates?.[0]}
-                          </span>{" "}
-                          and{" "}
-                          <span className="font-semibold">
-                            {item.dates?.[1]}
-                          </span>
-                          {item.time && (
-                            <>
-                              {" from "}
-                              <span className="font-semibold">
-                                {item.time[0]}
-                              </span>{" "}
-                              to{" "}
-                              <span className="font-semibold">
-                                {item.time[1]}
-                              </span>
-                            </>
-                          )}
-                        </p>
-                      )}
-
-                      <p
-                        className={`${
-                          type
-                            ? "text-[#FF3426] font-semibold"
-                            : "text-primary text-sm"
-                        }`}
-                      >
-                        {type ? item.price : `+${item.number}`}
+                      <p className="text-[#FF3426] font-semibold">
+                        {item.price}
                       </p>
                     </div>
-
-                    <EditDialog
-                      isNotAddress={type}
-                      type="edit-address"
-                      selectedAddress={item}
-                    />
                   </FormLabel>
                 </FormItem>
               ))}
-              <EditDialog isNotAddress={type} type="new-address" />
             </RadioGroup>
           </FormControl>
           <FormMessage />
@@ -218,6 +244,13 @@ interface Method {
   price: string;
 }
 
+interface DeliveryTabProp {
+  formName: "address" | "type";
+  name: string;
+  data: ModifiedStreet[];
+  form: UseFormReturn<z.infer<typeof FormSchema>>;
+}
+
 export interface ModifiedStreet {
   value: string;
   name?: string;
@@ -229,12 +262,4 @@ export interface ModifiedStreet {
   city?: string;
   state?: string;
   price?: string;
-}
-
-interface DeliveryTabProp {
-  type?: boolean;
-  formName: "address" | "type";
-  name: string;
-  data: ModifiedStreet[];
-  form: UseFormReturn<z.infer<typeof FormSchema>>;
 }

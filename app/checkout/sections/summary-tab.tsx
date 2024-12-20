@@ -4,7 +4,11 @@ import { product_list } from "@/app/data/product-list";
 import { IProduct } from "@/types/products";
 import { FormatNaira } from "@/utils/format-currency";
 
-export default function SummaryTab() {
+export default function SummaryTab({
+  setActiveTab,
+}: {
+  setActiveTab: (activeTab: string) => void;
+}) {
   return (
     <>
       <p className="text-primary text-lg font-medium w-full">Order summary</p>
@@ -32,6 +36,15 @@ export default function SummaryTab() {
         </p>
         <p className="text-[#FF3426] text-sm font-semibold">+2348180281937</p>
       </SummaryTabSections>
+
+      <Button
+        type={`submit`}
+        variant={`black`}
+        className={`hidden sm:flex w-full text-white font-bold h-11`}
+        onClick={() => setActiveTab("payment")}
+      >
+        Proceed to Payment
+      </Button>
     </>
   );
 }

@@ -27,8 +27,8 @@ function FilterAccordion() {
     <Accordion type="multiple" className="w-full">
       {filters.map((filter: filterProps, idx: number) => (
         <AccordionItem value={`${idx}`} key={idx} className="last:border-none">
-          <AccordionTrigger>{filter.label}</AccordionTrigger>
-          <AccordionContent className="flex flex-col gap-4">
+          <AccordionTrigger className="px-5">{filter.label}</AccordionTrigger>
+          <AccordionContent className="flex flex-col gap-4 px-5">
             {filter.options.map((option, idx) => (
               <Label
                 htmlFor={option}

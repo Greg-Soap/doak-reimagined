@@ -4,7 +4,7 @@ export const street: Street[] = [
     name: "Omonaluse Ohkuehne",
     address: "No 14, 19th street BDPA, Ugbowo",
     city: "Benin City",
-    state: "Oyo State",
+    state: "Edo",
     number: 2348180281937,
   },
   {
@@ -12,7 +12,7 @@ export const street: Street[] = [
     name: "Chukwufumnanya Ochei",
     address: "No 5, Emerald street Suncity Estate, Ikate",
     city: "Lekki-Ajah",
-    state: "Lagos State",
+    state: "Lagos",
     number: 2349030383868,
   },
 ];
