@@ -153,7 +153,7 @@ export default function EditDialog({
                   name={`address`}
                   render={({ field }) => (
                     <FormItem
-                      className={`col-span-2 flex flex-col justify-start`}
+                      className={`col-span-1 md:col-span-2 flex flex-col justify-start`}
                     >
                       <FormLabel className="text-xs text-primary font-medium max-w-fit">
                         Address

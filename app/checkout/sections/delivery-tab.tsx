@@ -16,6 +16,7 @@ import {
 } from "@/components/ui/form";
 import EditDialog from "../components/edit-dialog";
 import { street } from "@/app/data/address";
+import CartSummary from "@/app/cart/sections/cart-summary";
 
 const FormSchema = z.object({
   address: z.enum(["option-one", "option-two"], {
@@ -67,10 +68,20 @@ export default function DeliveryTab({
         <Button
           type={`submit`}
           variant={`black`}
-          className={`hidden sm:flex w-[90%] text-white font-bold h-11`}
+          className={`hidden md:flex w-[90%] text-white font-bold h-11`}
         >
           Proceed to Summary
         </Button>
+
+        <CartSummary type="delivery">
+          <Button
+            type={`submit`}
+            variant={`black`}
+            className={`flex text-white font-bold h-11`}
+          >
+            Proceed to Summary
+          </Button>
+        </CartSummary>
       </form>
     </Form>
   );

@@ -15,6 +15,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
+import { FormatNaira } from "@/utils/format-currency";
 
 const formSchema = z.object({
   card_number: z.number().min(12, {
@@ -130,7 +131,7 @@ export default function CardPaymentTab() {
                   </FormControl>
                   <FormLabel
                     className={`text-xs font-medium ${
-                      checked ? "text-secondary" : "text-primary "
+                      checked ? "text-primary" : "text-secondary"
                     } transition-colors duration-200`}
                   >
                     One Time Use
@@ -144,7 +145,7 @@ export default function CardPaymentTab() {
             variant={`black`}
             className="w-full h-11 font-bold"
           >
-            Submit
+            Pay {FormatNaira(3000000)}
           </Button>
         </form>
       </Form>
