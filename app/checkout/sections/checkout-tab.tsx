@@ -50,7 +50,7 @@ export default function CheckoutTab() {
         </Tabs>
       </div>
 
-      <CartSummary type="checkout">
+      <CartSummary type={activeTab === "payment" ? "payment" : "checkout"}>
         {activeTab === "payment" ? undefined : (
           <Button
             asChild
@@ -69,12 +69,6 @@ const tabTriggers: TabTriggers[] = [
   { name: "SUMMARY", value: "summary" },
   { name: "PAYMENT", value: "payment" },
 ];
-
-interface CheckoutTabProps {
-  tabTriggers: TabTriggers[];
-  activeTab: string;
-  setActiveTab: (activeTab: string) => void;
-}
 
 interface TabTriggers {
   name: string;

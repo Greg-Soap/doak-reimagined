@@ -50,6 +50,7 @@ export default function SingleProduct({ params }: PageProps) {
     return (
       <>
         <ProductInformation product={product} />
+
         <SimilarProducts name="Similar Products" />
       </>
     );
