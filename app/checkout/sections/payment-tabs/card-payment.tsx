@@ -228,7 +228,7 @@ function PromoCodeForm({
                   <Input
                     placeholder="Enter promo code..."
                     {...field}
-                    className="border-none p-0 text-sm"
+                    className="border-none p-0 text-sm shadow-none"
                   />
                   {validCode === "success" ? (
                     <GreenTick />
