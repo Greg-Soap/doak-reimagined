@@ -20,9 +20,13 @@ import clsx from "clsx";
 import { FormatNaira } from "@/utils/format-currency";
 
 const formSchema = z.object({
-  promo_code: z.string().min(7, {
-    message: "Promo code must be at least 7 characters.",
-  }),
+  promo_code: z
+    .string()
+    .min(7, {
+      message: "Promo code must be at least 7 characters.",
+    })
+    .or(z.literal("").optional())
+    .optional(),
 });
 
 export default function CartSummary({ type, children }: CartSummaryProps) {
@@ -44,9 +48,11 @@ export default function CartSummary({ type, children }: CartSummaryProps) {
         "px-5 w-[90%] md:w-full col-span-4 lg:col-span-1 flex-col border border-border p-4 pt-6 rounded-[10px] gap-6 h-fit",
         {
           "ml-[0%]": type !== "payment",
-          "ml-[5%]": type === "payment",
-          "hidden md:flex": type === "cart" || type === "checkout",
-          "flex md:hidden": type === "delivery",
+          "w-full": type === "payment" || type === "small-screen-payment",
+          "hidden md:flex":
+            type === "cart" || type === "checkout" || type === "payment",
+          "flex md:hidden":
+            type === "delivery" || type === "small-screen-payment",
           flex: type !== "cart" && type !== "checkout" && type !== "delivery",
         }
       )}
@@ -106,24 +112,22 @@ function PromoCodeForm({
   validCode: "success" | "error" | "";
   setValidCode: React.Dispatch<React.SetStateAction<"success" | "error" | "">>;
 }) {
-  // const promoCodeValue = form.watch("promo_code");
-
   return (
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="border-b border-border pb-6"
+        className="hidden md:flex border-b border-border pb-6 w-full"
       >
         <FormField
           control={form.control}
           name="promo_code"
           render={({ field }) => (
-            <FormItem className="flex flex-col gap-2">
+            <FormItem className="flex flex-col gap-2 w-full">
               <FormLabel>PROMO CODE</FormLabel>
               <FormControl>
                 <div
                   className={clsx(
-                    "flex items-center gap-2 px-2.5 py-1.5 border bg-[#F5F5F5] rounded-lg",
+                    "flex items-center gap-2 px-2.5 py-1.5 border bg-[#F5F5F5] rounded-lg w-full",
                     {
                       "border-border":
                         validCode === "success" || validCode === "",
@@ -165,7 +169,7 @@ function PromoCodeForm({
   );
 }
 
-function DiscountDetails({
+export function DiscountDetails({
   discountAmount,
   discountPercent,
 }: {
@@ -193,6 +197,12 @@ function TotalAmount({ totalAmount }: { totalAmount: number }) {
 }
 
 type CartSummaryProps = {
-  type: "checkout" | "cart" | "delivery" | "payment" | "summary";
+  type:
+    | "checkout"
+    | "cart"
+    | "delivery"
+    | "payment"
+    | "small-screen-payment"
+    | "summary";
   children?: React.ReactNode;
 };
