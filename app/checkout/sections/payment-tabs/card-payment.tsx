@@ -16,10 +16,9 @@ import {
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import { FormatNaira } from "@/utils/format-currency";
-import GreenTick from "@/components/icons/green-tick";
-import ArrowRightIcon from "@/components/icons/arrow-right";
-import CartSummary, { DiscountDetails } from "@/app/cart/sections/cart-summary";
-import clsx from "clsx";
+
+import CartSummary from "@/app/cart/sections/cart-summary";
+import VoucherCodeForm from "../../components/voucher-code-form";
 
 const formSchema = z.object({
   card_number: z.string().min(12, {
@@ -42,13 +41,6 @@ const formSchema = z.object({
       message: "Expiry date must be 4 characters long.",
     }),
   one_time_usage: z.boolean().default(false).optional(),
-  promo_code: z
-    .string()
-    .min(7, {
-      message: "Promo code must be at least 7 characters.",
-    })
-    .or(z.literal("").optional())
-    .optional(),
 });
 
 export default function CardPaymentTab() {
@@ -59,12 +51,10 @@ export default function CardPaymentTab() {
       cvv: "",
       expiry_date: "",
       one_time_usage: false,
-      promo_code: "",
     },
   });
 
   const [checked, setChecked] = useState<boolean>(false);
-  const [validCode, setValidCode] = useState<"success" | "error" | "">("");
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     console.log(values);
@@ -165,12 +155,7 @@ export default function CardPaymentTab() {
             />
           </div>
 
-          <PromoCodeForm
-            form={form}
-            onSubmit={onSubmit}
-            validCode={validCode}
-            setValidCode={setValidCode}
-          />
+          <VoucherCodeForm type />
 
           <CartSummary type="small-screen-payment">
             <Button variant={`black`}>Pay {FormatNaira(3003000)}</Button>
@@ -186,75 +171,5 @@ export default function CardPaymentTab() {
         </form>
       </Form>
     </div>
-  );
-}
-
-function PromoCodeForm({
-  form,
-  onSubmit,
-  validCode,
-  setValidCode,
-}: {
-  form: ReturnType<typeof useForm<z.infer<typeof formSchema>>>;
-  onSubmit: (values: z.infer<typeof formSchema>) => void;
-  validCode: "success" | "error" | "";
-  setValidCode: React.Dispatch<React.SetStateAction<"success" | "error" | "">>;
-}) {
-  return (
-    <Form {...form}>
-      <form
-        onSubmit={form.handleSubmit(onSubmit)}
-        className="flex flex-col md:hidden"
-      >
-        <FormField
-          control={form.control}
-          name="promo_code"
-          render={({ field }) => (
-            <FormItem className="flex flex-col gap-2">
-              <FormLabel className="font-medium text-primary">
-                Voucher
-              </FormLabel>
-              <FormControl>
-                <div
-                  className={clsx(
-                    "flex md:hidden items-center gap-2 px-2.5 py-1.5 border bg-[#F5F5F5] rounded-lg",
-                    {
-                      "border-border":
-                        validCode === "success" || validCode === "",
-                      "border-[#991F17]": validCode === "error",
-                    }
-                  )}
-                >
-                  <Input
-                    placeholder="Enter promo code..."
-                    {...field}
-                    className="border-none p-0 text-sm shadow-none"
-                  />
-                  {validCode === "success" ? (
-                    <GreenTick />
-                  ) : (
-                    <Button
-                      type="submit"
-                      className="p-2 bg-transparent hover:bg-transparent shadow-none"
-                    >
-                      <ArrowRightIcon />
-                    </Button>
-                  )}
-                </div>
-              </FormControl>
-              {validCode === "error" && (
-                <p className="text-xs font-medium text-[#991F17] -mt-3">
-                  Promo code is invalid
-                </p>
-              )}
-              {validCode === "success" && (
-                <DiscountDetails discountAmount={9780} discountPercent={25} />
-              )}
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-      </form>
-    </Form>
   );
 }
