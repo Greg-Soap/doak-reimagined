@@ -18,6 +18,11 @@ const config = {
       },
     },
     extend: {
+      backgroundImage: {
+        "contact-bg": "url('/assets/backgrounds/contact-bg.png')",
+        "small-contact-bg": "url('/assets/backgrounds/small-contact-bg.png')",
+        testimonial: "url('/assets/backgrounds/testimonial.png')",
+      },
       colors: {
         border: "#C5C5C5",
         input: "hsl(var(--input))",

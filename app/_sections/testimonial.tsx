@@ -9,7 +9,7 @@ import {
 
 export default function Testimonial() {
   return (
-    <section className="max-w-[1400px] w-full flex justify-center border-y border-border pt-10 pb-20 bg-[url('/assets/backgrounds/testimonial.png')] bg-cover bg-center bg-no-repeat overflow-hidden">
+    <section className="max-w-[1400px] w-full flex justify-center border-y border-border pt-10 pb-20 bg-testimonial bg-cover bg-center bg-no-repeat overflow-hidden">
       <div className="container flex flex-col w-full gap-8 items-center">
         <div className="flex flex-col items-center gap-1">
           <p className="text-primary text-sm">TESTIMONIALS</p>

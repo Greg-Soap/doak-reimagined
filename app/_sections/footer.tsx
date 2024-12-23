@@ -11,26 +11,7 @@ export default function Footer() {
           We give you everything you need
         </p>
 
-        <div className="flex items-center gap-3">
-          <Image
-            src="/assets/footer/facebook.png"
-            alt="Facebook Logo"
-            width={24}
-            height={24}
-          />
-          <Image
-            src="/assets/footer/instagram.png"
-            alt="Instagram Logo"
-            width={24}
-            height={24}
-          />
-          <Image
-            src="/assets/footer/whatsapp.png"
-            alt="Whatsapp Logo"
-            width={24}
-            height={24}
-          />
-        </div>
+        <Socials />
       </div>
 
       <div className="w-fit h-fit flex flex-col gap-10 text-center lg:flex-row lg:text-left">
@@ -71,6 +52,31 @@ export default function Footer() {
         </span>
       </div>
     </footer>
+  );
+}
+
+export function Socials() {
+  return (
+    <div className="flex items-center gap-3">
+      <Image
+        src="/assets/footer/facebook.png"
+        alt="Facebook Logo"
+        width={24}
+        height={24}
+      />
+      <Image
+        src="/assets/footer/instagram.png"
+        alt="Instagram Logo"
+        width={24}
+        height={24}
+      />
+      <Image
+        src="/assets/footer/whatsapp.png"
+        alt="Whatsapp Logo"
+        width={24}
+        height={24}
+      />
+    </div>
   );
 }
 
