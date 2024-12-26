@@ -1,0 +1,143 @@
+import AddressIcon from "@/components/icons/address";
+import MessageIcon from "@/components/icons/message";
+import NotificationIcon from "@/components/icons/notification-icon";
+import OrderIcon from "@/components/icons/order";
+import RateUsIcon from "@/components/icons/rate";
+import UserIcon from "@/components/icons/user";
+import VoucherIcon from "@/components/icons/voucher";
+import { Button } from "@/components/ui/button";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { ReactElement } from "react";
+import OrderTab from "./sections/order-tab";
+import NotificationTab from "./sections/notification-tab";
+import AddressTab from "./sections/address-tab";
+import VoucherTab from "./sections/voucher-tab";
+
+export default function AccountPage() {
+  return (
+    <section className="container flex justify-center py-24 bg-[#f7f7f7]">
+      <Tabs
+        defaultValue="profile"
+        orientation="vertical"
+        className="flex gap-20 w-fit min-h-fit"
+      >
+        <TabsList className="flex flex-col center bg-transparent gap-5 w-[260px] h-fit px-0 bg-white rounded-[10px] border border-border">
+          <p className="w-full text-center py-3 text-primary font-semibold border-b border-border">
+            My Doak Account
+          </p>
+          <div className="flex flex-col items-start gap-5 pb-6 px-5 w-full border-b border-border">
+            {tabTriggers.slice(0, 5).map((item: TabTriggers) => (
+              <TabsTrigger
+                key={item.value}
+                value={item.value}
+                className="group flex items-center gap-2.5 text-secondary data-[state=active]:text-primary data-[state=active]:bg-transparent data-[state=active]:shadow-none"
+              >
+                {item.icon}
+                {item.label}
+              </TabsTrigger>
+            ))}
+          </div>
+          <div className="flex flex-col items-start gap-5 pb-3 px-5 w-full border-b border-border">
+            {tabTriggers.slice(5, 8).map((item: TabTriggers) => (
+              <TabsTrigger
+                key={item.value}
+                value={item.value}
+                className="group flex items-center gap-2.5 text-secondary data-[state=active]:text-primary data-[state=active]:bg-transparent data-[state=active]:shadow-none"
+              >
+                {item.icon}
+                {item.label}
+              </TabsTrigger>
+            ))}
+          </div>
+
+          <Button
+            variant={`outline`}
+            className="w-[90%] py-2.5 font-semibold border-black text-black mb-2"
+          >
+            Log Out
+          </Button>
+        </TabsList>
+        {tabContents.map((item: TabContents) => (
+          <TabsContent
+            key={item.value}
+            value={item.value}
+            className="w-[842px] rounded-[10px] bg-white border border-border"
+          >
+            {item.element}
+          </TabsContent>
+        ))}
+      </Tabs>
+    </section>
+  );
+}
+
+const tabTriggers: TabTriggers[] = [
+  {
+    value: "profile",
+    icon: (
+      <UserIcon className="w-6 h-6 stroke-secondary group-data-[state=active]:stroke-primary transition-colors duration-300" />
+    ),
+    label: "Profile",
+  },
+  {
+    value: "orders",
+    icon: (
+      <OrderIcon className="w-5 h-5 stroke-secondary group-data-[state=active]:stroke-primary transition-colors duration-300" />
+    ),
+    label: "Orders",
+  },
+  {
+    value: "notifications",
+    icon: (
+      <NotificationIcon className="w-5 h-5 stroke-secondary group-data-[state=active]:stroke-primary transition-colors duration-300" />
+    ),
+    label: "Notifications",
+  },
+  {
+    value: "addresses",
+    icon: (
+      <AddressIcon className="w-5 h-5 stroke-secondary group-data-[state=active]:stroke-primary transition-colors duration-300" />
+    ),
+    label: "Addresses",
+  },
+  {
+    value: "vouchers",
+    icon: (
+      <VoucherIcon className="w-5 h-5 stroke-secondary group-data-[state=active]:stroke-primary transition-colors duration-300" />
+    ),
+    label: "Vouchers",
+  },
+  {
+    value: "rate_our_services",
+    icon: (
+      <RateUsIcon className="w-5 h-5 stroke-secondary group-data-[state=active]:stroke-primary transition-colors duration-300" />
+    ),
+    label: "Rate Doak Services",
+  },
+  {
+    value: "help_center",
+    icon: (
+      <MessageIcon className="w-5 h-5 stroke-secondary group-data-[state=active]:stroke-primary transition-colors duration-300" />
+    ),
+    label: "Help Center",
+  },
+];
+
+const tabContents: TabContents[] = [
+  { value: "profile", element: undefined },
+  { value: "orders", element: <OrderTab /> },
+  { value: "notifications", element: <NotificationTab /> },
+  { value: "addresses", element: <AddressTab /> },
+  { value: "vouchers", element: <VoucherTab /> },
+];
+
+interface TabTriggers {
+  value: string;
+  icon: ReactElement;
+  label: string;
+}
+
+interface TabContents {
+  value: string;
+  element?: ReactElement;
+}

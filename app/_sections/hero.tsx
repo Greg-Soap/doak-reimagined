@@ -15,7 +15,7 @@ export function Hero() {
             diam. Cras venenatis sit faucibus.
           </p>
           <Button variant={"black"} className="w-fit gap-2 px-5 py-[10px]">
-            <Image src={cartWhiteIcon} alt="icon" /> Start Shopping
+            <Image src={cartWhiteIcon} alt="Cart" /> Start Shopping
           </Button>
         </div>
       </div>

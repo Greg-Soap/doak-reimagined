@@ -5,6 +5,17 @@ import { Button } from "@/components/ui/button";
 import { bellIcon, cartIcon, searchIcon, userIcon } from "@/components/icons";
 import { Input } from "@/components/ui/input";
 import Link from "next/link";
+import { ChevronDownIcon } from "@radix-ui/react-icons";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import UserIcon from "@/components/icons/user";
+import OrderIcon from "@/components/icons/order";
 
 export default function Navbar() {
   return (
@@ -56,11 +67,80 @@ function NavMenu() {
       style={{ gridColumn: "3 / span 1", gridRow: "1 / span 1" }}
     >
       <IconNotification notification icon={bellIcon} />
-      <Button variant={"outline"} className="border-none p-0 lg:border lg:p-3">
+      {/* <Button
+        variant={"outline"}
+        className="p-0 lg:border lg:py-2 lg:px-[14px] shadow-none border-border gap-1.5"
+      >
         <Image src={userIcon} alt="user" className="icon" />
         <p className="hidden lg:flex">Account</p>
-      </Button>
+        <ChevronDownIcon width={24} height={24} />
+      </Button> */}
+      <AccountDropDownMenu user={false} />
+
       <IconNotification notification icon={cartIcon} />
     </div>
   );
 }
+
+function AccountDropDownMenu({ user }: { user: boolean }) {
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger>
+        <Button className="p-0 h-10 lg:border-2 lg:py-2 lg:px-[14px] shadow-none border-border gap-1.5 text-primary bg-transparent hover:bg-transparent">
+          <Image src={userIcon} alt="user" className="icon" />
+          <p className="hidden lg:flex">Account</p>
+          <ChevronDownIcon
+            width={24}
+            height={24}
+            color="#333333"
+            className="hidden lg:flex"
+          />
+        </Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent className="w-[288px] px-6 py-3 rounded-[10px] flex flex-col gap-2">
+        <DropdownMenuLabel className="text-lg text-primary font-semibold text-center mb-2">
+          {user ? "Welcome Back to DOAK!" : "Welcome to DOAK!"}
+        </DropdownMenuLabel>
+        {user &&
+          dropdownLinks.map((item) => (
+            <DropdownMenuItem key={item.name}>
+              <Link
+                href={item.href}
+                className="flex items-center gap-2 text-primary text-sm font-medium"
+              >
+                {item.icon} {item.name}
+              </Link>
+            </DropdownMenuItem>
+          ))}
+
+        <div className="flex flex-col items-center gap-2 mt-2">
+          <Button
+            variant={`black`}
+            className={`w-full h-11 ${user ? "hidden" : "flex"}`}
+          >
+            Register
+          </Button>
+          <Button
+            variant={`outline`}
+            className="border-2 border-black font-medium mt-2 w-full h-11"
+          >
+            Log Out
+          </Button>
+        </div>
+      </DropdownMenuContent>
+    </DropdownMenu>
+  );
+}
+
+const dropdownLinks = [
+  {
+    href: "/account",
+    icon: <UserIcon className="w-6 h-6 stroke-[#292D32]" />,
+    name: "My Account",
+  },
+  {
+    href: "/account",
+    icon: <OrderIcon className="w-6 h-6 stroke-[#292D32]" />,
+    name: "Orders",
+  },
+];
