@@ -16,11 +16,13 @@ export default function EmptyState({
   type?: boolean;
 }) {
   return (
-    <div className="flex flex-col items-center gap-6 w-fit py-16">
+    <div className="flex flex-col items-center gap-6 w-fit py-16 md:px-10 lg:px-0">
       <Image src={image} alt={alt} width={109} height={103} />
       <div className="flex flex-col gap-1 items-center mt-4">
-        <p className="text-primary text-xl font-semibold">{title}</p>
-        <p className="text-xs text-primary">{caption}</p>
+        <p className="text-primary text-xl font-semibold text-center">
+          {title}
+        </p>
+        <p className="text-xs text-primary text-center">{caption}</p>
       </div>
       <Button
         variant={type ? `outline` : `black`}

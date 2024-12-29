@@ -1,3 +1,5 @@
+"use client";
+
 import AddressIcon from "@/components/icons/address";
 import MessageIcon from "@/components/icons/message";
 import NotificationIcon from "@/components/icons/notification-icon";
@@ -12,37 +14,86 @@ import OrderTab from "./sections/order-tab";
 import NotificationTab from "./sections/notification-tab";
 import AddressTab from "./sections/address-tab";
 import VoucherTab from "./sections/voucher-tab";
+import { useState } from "react";
+import ProfileTab from "./sections/profile-tab";
+import OrderDetailsTab from "./sections/order-details-tab";
 
 export default function AccountPage() {
+  const [activeTab, setActiveTab] = useState<string>("profile");
+  const [selectedOrder, setSelectedOrder] = useState<string>("");
+  const [isTabContentHidden, setIsTabContentHidden] = useState<boolean>(true);
+
+  const tabContents: TabContents[] = [
+    {
+      value: "profile",
+      element: <ProfileTab setIsContentTabHidden={setIsTabContentHidden} />,
+    },
+    {
+      value: "orders",
+      element: (
+        <OrderTab
+          setIsContentTabHidden={setIsTabContentHidden}
+          setSelectedOrder={setSelectedOrder}
+          setActiveTab={setActiveTab}
+        />
+      ),
+    },
+    {
+      value: "notifications",
+      element: (
+        <NotificationTab setIsContentTabHidden={setIsTabContentHidden} />
+      ),
+    },
+    {
+      value: "addresses",
+      element: <AddressTab setIsContentTabHidden={setIsTabContentHidden} />,
+    },
+    {
+      value: "vouchers",
+      element: <VoucherTab setIsContentTabHidden={setIsTabContentHidden} />,
+    },
+    {
+      value: "order-details",
+      element: <OrderDetailsTab setActiveTab={setActiveTab} />,
+    },
+  ];
+
   return (
-    <section className="container flex justify-center py-24 bg-[#f7f7f7]">
+    <section className="md:container w-full flex justify-center md:py-12 lg:py-24 bg-[#f7f7f7]">
       <Tabs
         defaultValue="profile"
+        value={activeTab}
+        onValueChange={setActiveTab}
         orientation="vertical"
-        className="flex gap-20 w-fit min-h-fit"
+        className="flex gap-5 py-5 md:py-0 lg:gap-20 w-full xl:w-fit min-h-fit bg-white md:bg-transparent"
       >
-        <TabsList className="flex flex-col center bg-transparent gap-5 w-[260px] h-fit px-0 bg-white rounded-[10px] border border-border">
-          <p className="w-full text-center py-3 text-primary font-semibold border-b border-border">
+        <TabsList
+          className={`${
+            isTabContentHidden ? "flex" : "max-md:hidden"
+          } flex flex-col bg-transparent gap-5 w-full md:w-[260px] h-fit px-6 md:px-0 bg-white rounded-[10px] md:border border-border`}
+        >
+          <p className="w-full md:text-center py-3 text-primary font-semibold border-b border-border">
             My Doak Account
           </p>
-          <div className="flex flex-col items-start gap-5 pb-6 px-5 w-full border-b border-border">
+          <div className="flex flex-col items-start gap-5 pb-6 md:px-5 w-full border-b border-border">
             {tabTriggers.slice(0, 5).map((item: TabTriggers) => (
               <TabsTrigger
+                onClick={() => setIsTabContentHidden(false)}
                 key={item.value}
                 value={item.value}
-                className="group flex items-center gap-2.5 text-secondary data-[state=active]:text-primary data-[state=active]:bg-transparent data-[state=active]:shadow-none"
+                className="group flex items-center max-md:px-0 gap-2.5 text-secondary data-[state=active]:text-primary data-[state=active]:bg-transparent data-[state=active]:shadow-none"
               >
                 {item.icon}
                 {item.label}
               </TabsTrigger>
             ))}
           </div>
-          <div className="flex flex-col items-start gap-5 pb-3 px-5 w-full border-b border-border">
+          <div className="flex flex-col items-start gap-5 pb-3 md:px-5 w-full border-b border-border">
             {tabTriggers.slice(5, 8).map((item: TabTriggers) => (
               <TabsTrigger
                 key={item.value}
                 value={item.value}
-                className="group flex items-center gap-2.5 text-secondary data-[state=active]:text-primary data-[state=active]:bg-transparent data-[state=active]:shadow-none"
+                className="group flex items-center max-md:px-0 gap-2.5 text-secondary data-[state=active]:text-primary data-[state=active]:bg-transparent data-[state=active]:shadow-none"
               >
                 {item.icon}
                 {item.label}
@@ -52,7 +103,7 @@ export default function AccountPage() {
 
           <Button
             variant={`outline`}
-            className="w-[90%] py-2.5 font-semibold border-black text-black mb-2"
+            className="w-full md:w-[90%] py-2.5 font-semibold border-black text-black mb-2"
           >
             Log Out
           </Button>
@@ -61,7 +112,9 @@ export default function AccountPage() {
           <TabsContent
             key={item.value}
             value={item.value}
-            className="w-[842px] rounded-[10px] bg-white border border-border"
+            className={`${
+              isTabContentHidden ? "max-md:hidden" : ""
+            } w-full md:w-[90%] xl:w-[842px] rounded-[10px] bg-white md:border border-border mt-0`}
           >
             {item.element}
           </TabsContent>
@@ -123,14 +176,6 @@ const tabTriggers: TabTriggers[] = [
   },
 ];
 
-const tabContents: TabContents[] = [
-  { value: "profile", element: undefined },
-  { value: "orders", element: <OrderTab /> },
-  { value: "notifications", element: <NotificationTab /> },
-  { value: "addresses", element: <AddressTab /> },
-  { value: "vouchers", element: <VoucherTab /> },
-];
-
 interface TabTriggers {
   value: string;
   icon: ReactElement;
@@ -139,5 +184,5 @@ interface TabTriggers {
 
 interface TabContents {
   value: string;
-  element?: ReactElement;
+  element: ReactElement;
 }

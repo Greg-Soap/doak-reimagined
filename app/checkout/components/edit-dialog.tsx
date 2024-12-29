@@ -60,9 +60,11 @@ const formSchema = z.object({
 export default function EditDialog({
   type,
   selectedAddress,
+  className,
 }: {
   type: "new-address" | "edit-address";
   selectedAddress?: ModifiedStreet;
+  className?: string;
 }) {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -85,7 +87,7 @@ export default function EditDialog({
     <Dialog>
       <DialogTrigger
         type="button"
-        className={`flex ${
+        className={`flex ${className} ${
           type === "edit-address"
             ? "p-2 rounded-[4px] hover:bg-transparent bg-transparent text-sm text-[#FF3426]"
             : "w-fit text-[#FF3426] font-medium text-sm border-2 bg-transparent hover:bg-transparent ml-9 -mt-4 py-[10px] px-[14px] border-border rounded-[5px]"
