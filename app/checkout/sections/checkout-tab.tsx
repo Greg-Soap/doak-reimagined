@@ -1,11 +1,11 @@
 "use client";
 
 import { Tabs, TabsContent, TabsList } from "@/components/ui/tabs";
-import { CustomTabTriggers } from "@/app/[productId]/sections/product-tabs";
+import CustomTabTriggers from "@/components/custom/custom-tag-trigger";
 import DeliveryTab from "./delivery-tab";
 import SummaryTab from "./summary-tab";
 import PaymentTab from "./payment-tab";
-import CartSummary from "@/app/cart/sections/cart-summary";
+import CartSummary from "@/components/custom/cart-summary";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { useState } from "react";
@@ -50,7 +50,11 @@ export default function CheckoutTab() {
         </Tabs>
       </div>
 
-      <CartSummary type={activeTab === "payment" ? "payment" : "checkout"}>
+      <CartSummary
+        className={`hidden md:flex ${
+          activeTab === "payment" ? "w-full" : "ml-[0%]"
+        }`}
+      >
         {activeTab === "payment" ? undefined : (
           <Button
             asChild

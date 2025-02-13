@@ -1,6 +1,6 @@
 "use client";
 
-import { QuantityControl } from "@/app/[productId]/sections/product-information";
+import QuantityControl from "@/components/custom/quantity-control";
 import TrashIcon from "@/assets/icons/trash-icon";
 import {
   Table,
@@ -14,7 +14,7 @@ import Image from "next/image";
 import { useState } from "react";
 import { product_list } from "@/app/data/product-list";
 import { FormatNaira } from "@/utils/format-currency";
-import CartSummary from "./cart-summary";
+import CartSummary from "../../../components/custom/cart-summary";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
@@ -28,7 +28,7 @@ export default function ShoppingCart() {
       <div className="grid grid-cols-4 md:gap-5">
         <CartTable />
 
-        <CartSummary type="cart">
+        <CartSummary className="hidden md:flex">
           <Button asChild variant={`black`} className={`flex`}>
             <Link href={`/checkout`}>Check Out</Link>
           </Button>
@@ -38,7 +38,7 @@ export default function ShoppingCart() {
           className={`flex md:hidden items-center justify-between h-[96px] w-full border-t border-border bg-[#F7F7F7] col-span-4 px-5`}
         >
           <div className="flex flex-col gap-2">
-            <p className="text-primary text-xs">TOTAL:</p>
+            <p className="text-primary text-xs">Total</p>
             <p className="text-xl font-extrabold text-primary">N3,300,000.00</p>
           </div>
 

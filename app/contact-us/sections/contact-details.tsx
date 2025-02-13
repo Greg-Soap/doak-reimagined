@@ -1,5 +1,3 @@
-import { Socials } from "@/app/_sections/footer";
-
 export default function ContactDetails() {
   return (
     <div className="flex flex-col items-center lg:items-stretch gap-10 max-w-[152px]">
@@ -16,8 +14,6 @@ export default function ContactDetails() {
           </div>
         </div>
       ))}
-
-      <Socials />
     </div>
   );
 }

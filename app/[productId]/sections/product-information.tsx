@@ -6,6 +6,8 @@ import { useState } from "react";
 import ProductTabs from "./product-tabs";
 import { IProduct } from "@/types/products";
 import { FormatNaira } from "@/utils/format-currency";
+import clsx from "clsx";
+import QuantityControl from "@/components/custom/quantity-control";
 
 export default function ProductInformation({ product }: { product: IProduct }) {
   const [count, setCount] = useState<number>(1);
@@ -26,7 +28,7 @@ export default function ProductInformation({ product }: { product: IProduct }) {
         <Image
           src={product.image}
           alt="Product"
-          width={426}
+          width={446}
           height={611}
           className="rounded-[10px] h-full"
         />
@@ -49,11 +51,14 @@ export default function ProductInformation({ product }: { product: IProduct }) {
                 <Button
                   key={index}
                   onClick={() => handleClick(index)}
-                  className={`py-[10px] px-[14px] rounded-[5px] transition-all duration-300 ${
-                    item.isActive
-                      ? "text-white bg-black hover:bg-black"
-                      : "text-secondary bg-transparent hover:bg-[#000000cc] hover:text-white"
-                  }`}
+                  className={clsx(
+                    "py-[10px] px-[14px] rounded-[5px] transition-all duration-300",
+                    {
+                      "text-white bg-black hover:bg-black": item.isActive,
+                      "text-secondary bg-transparent hover:bg-[#000000cc] hover:text-white":
+                        !item.isActive,
+                    }
+                  )}
                 >
                   {item.size}
                 </Button>
@@ -64,7 +69,7 @@ export default function ProductInformation({ product }: { product: IProduct }) {
           <div className="flex flex-col gap-[14px]">
             <p className="text-primary font-semibold text-sm">QUANTITY:</p>
 
-            <QuantityControl count={count} setCount={setCount} />
+            <QuantityControl count={count} setCount={setCount} type="product" />
           </div>
 
           <div className="flex flex-col gap-[14px]">
@@ -79,7 +84,6 @@ export default function ProductInformation({ product }: { product: IProduct }) {
                   {FormatNaira(product.discount_price)}
                 </p>
               )}
-              {/**<p className="bg-[#FFD9DA] p-0.5 text-[#FF3426]"></p> */}
             </div>
           </div>
 
@@ -94,45 +98,6 @@ export default function ProductInformation({ product }: { product: IProduct }) {
 
       <ProductTabs />
     </section>
-  );
-}
-
-export function QuantityControl({
-  type,
-  count,
-  setCount,
-}: {
-  type?: "cart";
-  count: number;
-  setCount: (count: number) => void;
-}) {
-  return (
-    <div className="flex items-center gap-4 md:gap-5">
-      <Button
-        variant={`default`}
-        onClick={() => setCount(count - 1)}
-        disabled={count === 1}
-        className={`${
-          type &&
-          "h-6 w-6 border border-border px-2 py-1 md:h-9 md:w-auto md:px-4 md:py-2"
-        } text-primary bg-transparent hover:bg-transparent`}
-      >
-        -
-      </Button>
-      <p className="border border-black py-[10px] px-[18px] text-primary font-semibold rounded-[5px]">
-        {count}
-      </p>
-      <Button
-        variant={`default`}
-        onClick={() => setCount(count + 1)}
-        className={`${
-          type &&
-          "h-6 w-6 border border-border px-2 py-1 md:h-9 md:w-auto md:px-4 md:py-2"
-        } text-primary bg-transparent hover:bg-transparent`}
-      >
-        +
-      </Button>
-    </div>
   );
 }
 

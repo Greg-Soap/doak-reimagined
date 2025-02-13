@@ -16,8 +16,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import { FormatNaira } from "@/utils/format-currency";
-
-import CartSummary from "@/app/cart/sections/cart-summary";
+import CartSummary from "@/components/custom/cart-summary";
 import VoucherCodeForm from "../../components/voucher-code-form";
 
 const formSchema = z.object({
@@ -68,66 +67,33 @@ export default function CardPaymentTab() {
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-7">
           <div className="w-full grid grid-cols-2 gap-7 border border-border rounded-[10px] p-4 md:p-9">
-            <FormField
-              control={form.control}
-              name="card_number"
-              render={({ field }) => (
-                <FormItem className="col-span-2">
-                  <FormLabel className="text-xs font-medium text-primary">
-                    Card Number
-                  </FormLabel>
-                  <FormControl>
-                    <Input
-                      type="number"
-                      placeholder="xxxx - xxxx- xxxx- xxxx"
-                      {...field}
-                      className="placeholder:text-secondary"
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="cvv"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className="text-xs font-medium text-primary">
-                    CVV
-                  </FormLabel>
-                  <FormControl>
-                    <Input
-                      type="number"
-                      placeholder="***"
-                      {...field}
-                      className="placeholder:text-secondary"
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="expiry_date"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className="text-xs font-medium text-primary">
-                    Expiry Date
-                  </FormLabel>
-                  <FormControl>
-                    <Input
-                      type="number"
-                      placeholder="xx/xx"
-                      {...field}
-                      className="placeholder:text-secondary"
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+            {payment_forms.map((item) => (
+              <FormField
+                key={item.name}
+                control={form.control}
+                name={item.name}
+                render={({ field }) => (
+                  <FormItem
+                    className={`${
+                      item.name === "card_number" ? "col-span-2" : ""
+                    }`}
+                  >
+                    <FormLabel className="text-xs font-medium text-primary">
+                      {item.label}
+                    </FormLabel>
+                    <FormControl>
+                      <Input
+                        type={item.name === "card_number" ? "number" : "text"}
+                        placeholder={item.placeholder}
+                        {...field}
+                        className="placeholder:text-secondary"
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            ))}
             <FormField
               control={form.control}
               name="one_time_usage"
@@ -157,7 +123,7 @@ export default function CardPaymentTab() {
 
           <VoucherCodeForm type />
 
-          <CartSummary type="small-screen-payment">
+          <CartSummary className="ml-[0%] w-full flex md:hidden">
             <Button variant={`black`}>Pay {FormatNaira(3003000)}</Button>
           </CartSummary>
 
@@ -172,4 +138,20 @@ export default function CardPaymentTab() {
       </Form>
     </div>
   );
+}
+
+const payment_forms: PaymentForm[] = [
+  {
+    name: "card_number",
+    label: "Card Number",
+    placeholder: "xxxx - xxxx- xxxx- xxxx",
+  },
+  { name: "cvv", label: "CVV", placeholder: "***" },
+  { name: "expiry_date", label: "Expiry Date", placeholder: "xx/xx" },
+];
+
+interface PaymentForm {
+  name: "card_number" | "cvv" | "expiry_date";
+  label: string;
+  placeholder: string;
 }

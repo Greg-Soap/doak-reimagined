@@ -55,7 +55,7 @@ export default function Footer() {
   );
 }
 
-export function Socials() {
+function Socials() {
   return (
     <div className="flex items-center gap-3">
       <Image

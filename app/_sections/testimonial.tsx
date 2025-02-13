@@ -29,16 +29,6 @@ export default function Testimonial() {
           <CarouselNext />
           <CarouselPrevious />
         </Carousel>
-
-        {/**<div className="flex gap-10 overflow-x-auto">
-          {testimonial.map((item: Testimonial, index: number) => (
-            <TestimonialCard
-              key={index}
-              testimony={item.testimony}
-              name={item.name}
-            />
-          ))}
-        </div> */}
       </div>
     </section>
   );

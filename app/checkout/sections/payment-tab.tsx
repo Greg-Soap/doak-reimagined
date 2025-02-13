@@ -28,7 +28,7 @@ export default function PaymentTab() {
           <CardPaymentTab />
         </div>
       </TabsContent>
-      <TabsContent value="transfer">
+      <TabsContent value="transfer" className="w-full">
         <div className="w-full h-fit flex">
           <TransferTab />
         </div>

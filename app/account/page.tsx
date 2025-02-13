@@ -54,7 +54,9 @@ export default function AccountPage() {
     },
     {
       value: "order-details",
-      element: <OrderDetailsTab setActiveTab={setActiveTab} />,
+      element: (
+        <OrderDetailsTab setActiveTab={setActiveTab} orderId={selectedOrder} />
+      ),
     },
   ];
 

@@ -1,11 +1,10 @@
-import { Badge } from "@/components/ui/badge";
 import EmptyState from "../components/empty-component";
 import TabSections from "../components/tab-sections";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { OrderProps, orders } from "@/app/data/orders";
-import clsx from "clsx";
 import { truncate } from "@/app/lib/truncate";
+import OrderStatusBadge from "../components/order-status-badge";
 
 export default function OrderTab({
   setIsContentTabHidden,
@@ -33,6 +32,7 @@ export default function OrderTab({
           <>
             {orders.map((item) => (
               <AllOrdersCard
+                key={item.order_number}
                 item={item}
                 buttonFunction={() => {
                   setSelectedOrder(item.order_number);
@@ -67,23 +67,13 @@ function AllOrdersCard({
         <div className="flex items-center gap-1.5">
           <p className="text-sm text-primary">{`Order No. ${item.order_number}`}</p>
 
-          <Badge
-            className={clsx("text-sm font-medium px-1 py-[1px] rounded-[5px]", {
-              "text-[#21E558] bg-[#EBFFF0] hover:bg-[#EBFFF0]":
-                item.status === "Delivered" || item.status === "Order Placed",
-              "text-[#FF3426] bg-[#F2E2E1] hover:bg-[#F2E2E1]":
-                item.status === "Failed Payment",
-              "bg-[#7F7F7F] text-white hover:bg-[#7F7F7F]":
-                item.status === "Cancelled By Self",
-            })}
-          >
-            {item.status}
-          </Badge>
+          <OrderStatusBadge status={item.status} />
         </div>
 
         <div className="flex items-center gap-1">
           {item.items_ordered.map((product) => (
             <Image
+              key={product.name}
               src={product.image}
               alt={product.name}
               width={32}

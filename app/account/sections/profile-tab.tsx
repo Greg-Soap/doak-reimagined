@@ -14,7 +14,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import TabSections from "../components/tab-sections";
-import EditDialog from "@/app/checkout/components/edit-dialog";
+import EditDialog from "@/components/custom/edit-dialog";
 
 const formSchema = z.object({
   first_name: z.string().min(2, {
@@ -87,10 +87,9 @@ export default function ProfileTab({
               )}
             />
           ))}
-          <EditDialog
-            type="new-address"
-            className="md:col-span-2 w-full ml-0 mt-2 text-primary flex items-center justify-center"
-          />
+
+          <EditDialog type="profile-address" />
+
           <Button
             variant={`black`}
             type="submit"

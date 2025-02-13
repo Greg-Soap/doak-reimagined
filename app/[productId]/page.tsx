@@ -3,6 +3,7 @@ import { product_list } from "../data/product-list";
 import ProductInformation from "./sections/product-information";
 import SimilarProducts from "./sections/similar-drinks";
 import { ArrowLeftIcon } from "@radix-ui/react-icons";
+import { notFound } from "next/navigation";
 
 export default function SingleProduct({ params }: PageProps) {
   const product = product_list.find(
@@ -17,17 +18,9 @@ export default function SingleProduct({ params }: PageProps) {
         <SimilarProducts name="Similar Products" />
       </>
     );
+  } else {
+    return notFound();
   }
-
-  return (
-    <section className="flex flex-col flex-wrap gap-5 max-w-[872px] py-20 min-h-[calc(100vh - 100px)]">
-      <p>No product found!</p>
-      <Button variant="black" className="flex gap-2">
-        <ArrowLeftIcon color="white" />
-        Go back
-      </Button>
-    </section>
-  );
 }
 
 interface PageProps {

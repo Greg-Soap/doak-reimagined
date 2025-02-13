@@ -14,9 +14,9 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import EditDialog from "../components/edit-dialog";
-import { street } from "@/app/data/address";
-import CartSummary from "@/app/cart/sections/cart-summary";
+import EditDialog from "../../../components/custom/edit-dialog";
+import { street, Street } from "@/app/data/address";
+import CartSummary from "@/components/custom/cart-summary";
 
 const FormSchema = z.object({
   address: z.enum(["option-one", "option-two"], {
@@ -73,7 +73,7 @@ export default function DeliveryTab({
           Proceed to Summary
         </Button>
 
-        <CartSummary type="delivery">
+        <CartSummary className="ml-[0%] flex md:hidden">
           <Button
             type={`submit`}
             variant={`black`}
@@ -100,7 +100,7 @@ function EmptyState() {
   );
 }
 
-function StreetSection({ formName, name, data, form }: DeliveryTabProp) {
+function StreetSection({ formName, name, data, form }: StreetTabProp) {
   const [selectedValue, setSelectedValue] = useState<string>("");
 
   return (
@@ -255,22 +255,16 @@ interface Method {
   price: string;
 }
 
-interface DeliveryTabProp {
-  formName: "address" | "type";
+interface StreetTabProp {
+  formName: "address";
   name: string;
-  data: ModifiedStreet[];
+  data: Street[];
   form: UseFormReturn<z.infer<typeof FormSchema>>;
 }
 
-export interface ModifiedStreet {
-  value: string;
-  name?: string;
-  address?: string;
-  number?: number;
-  type?: "Door delivery" | "Pickup";
-  dates?: string[];
-  time?: string[];
-  city?: string;
-  state?: string;
-  price?: string;
+interface DeliveryTabProp {
+  formName: "address" | "type";
+  name: string;
+  data: Method[];
+  form: UseFormReturn<z.infer<typeof FormSchema>>;
 }

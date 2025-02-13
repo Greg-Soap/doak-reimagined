@@ -1,4 +1,5 @@
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Tabs, TabsContent, TabsList } from "@/components/ui/tabs";
+import CustomTagTrigger from "@/components/custom/custom-tag-trigger";
 
 export default function ProductTabs() {
   return (
@@ -8,7 +9,7 @@ export default function ProductTabs() {
     >
       <TabsList className="border-b border-border w-full rounded-b-none bg-transparent py-7">
         {tabTriggers.map((item: TabTriggers, index: number) => (
-          <CustomTabTriggers key={index} name={item.name} value={item.value} />
+          <CustomTagTrigger key={index} name={item.name} value={item.value} />
         ))}
       </TabsList>
       <TabsContent
@@ -37,20 +38,6 @@ export default function ProductTabs() {
   );
 }
 
-export function CustomTabTriggers({ value, name, className }: TabProps) {
-  return (
-    <TabsTrigger
-      value={value}
-      className={`${
-        className ? className : "w-1/2"
-      } flex flex-col text-center text-xs text-secondary font-bold data-[state=active]:bg-transparent data-[state=active]:shadow-none data-[state=active]:text-primary group`}
-    >
-      {name}
-      <span className="w-6 h-0.5 bg-transparent group-data-[state=active]:bg-[#FF3426]" />
-    </TabsTrigger>
-  );
-}
-
 const tabTriggers: TabTriggers[] = [
   { name: "DESCRIPTION", value: "description" },
   { name: "PRODUCT DETAILS", value: "product-details" },
@@ -59,8 +46,4 @@ const tabTriggers: TabTriggers[] = [
 interface TabTriggers {
   name: string;
   value: string;
-}
-
-interface TabProps extends TabTriggers {
-  className?: string;
 }

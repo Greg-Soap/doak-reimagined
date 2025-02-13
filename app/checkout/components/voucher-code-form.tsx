@@ -16,7 +16,7 @@ import { Input } from "@/components/ui/input";
 import ArrowRightIcon from "@/components/icons/arrow-right";
 import GreenTick from "@/components/icons/green-tick";
 import clsx from "clsx";
-import { DiscountDetails } from "../../cart/sections/cart-summary";
+import { DiscountDetails } from "../../../components/custom/cart-summary";
 import { useState } from "react";
 
 const formSchema = z.object({
@@ -82,11 +82,13 @@ export default function VoucherCodeForm({ type }: { type?: boolean }) {
                   )}
                 </div>
               </FormControl>
+
               {validCode === "error" && (
                 <p className="text-xs font-medium text-[#991F17] -mt-3">
                   Promo code is invalid
                 </p>
               )}
+
               {validCode === "success" && (
                 <DiscountDetails discountAmount={9780} discountPercent={25} />
               )}
