@@ -1,6 +1,6 @@
 import { IProduct } from "@/types/products";
 import FilterBar from "../_components/filter-bar";
-import ProductCard from "../_components/product-card";
+import ProductCard from "../../components/custom/product-card";
 import { PaginationComponent } from "../_components/pagination";
 import { product_list } from "../data/product-list";
 

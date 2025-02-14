@@ -1,4 +1,4 @@
-import ProductCard from "@/app/_components/product-card";
+import ProductCard from "@/components/custom/product-card";
 import { product_list } from "@/app/data/product-list";
 import { Button } from "@/components/ui/button";
 import { IProduct } from "@/types/products";

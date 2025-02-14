@@ -1,16 +1,16 @@
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { ArrowLeftIcon } from "@radix-ui/react-icons";
-// import Image from "next/image";
+import Image from "next/image";
 
 export default function NotFound() {
   return (
-    <section className="container w-full flex items-center justify-between">
+    <section className="container w-full flex items-center justify-between min-h-screen max-h-[730px] py-0">
       <div className="flex flex-col gap-7 max-w-[500px]">
-        <div className="flex flex-col gap-4">
-          <p className="text-primary text-xl font-bold text-[72px]">404</p>
+        <div className="flex flex-col gap-0">
+          <p className="text-primary font-bold text-[72px]">404</p>
 
-          <p className="text-primary text-xl font-bold">
+          <p className="text-primary text-xl font-bold -mt-2.5">
             Opps! Nothing to see here, this page does not exist!
           </p>
         </div>
@@ -26,9 +26,9 @@ export default function NotFound() {
         </Button>
       </div>
 
-      <div className="flex items-center justify-center w-auto h-[730px] bg-testimonial bg-cover bg-center">
-        {/* <Image
-          src={`/assets/not.jpg`}
+      <div className="flex items-center justify-center w-auto h-full bg-testimonial bg-cover bg-center">
+        <Image
+          src={`/assets/404.png`}
           alt="Not Found"
           width={226}
           height={574}
@@ -39,7 +39,7 @@ export default function NotFound() {
           alt="Not Found"
           width={226}
           height={574}
-        /> */}
+        />
       </div>
     </section>
   );

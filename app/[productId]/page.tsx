@@ -1,13 +1,17 @@
-import { Button } from "@/components/ui/button";
 import { product_list } from "../data/product-list";
 import ProductInformation from "./sections/product-information";
 import SimilarProducts from "./sections/similar-drinks";
-import { ArrowLeftIcon } from "@radix-ui/react-icons";
 import { notFound } from "next/navigation";
 
-export default function SingleProduct({ params }: PageProps) {
+export default async function SingleProduct({
+  params,
+}: {
+  params: Promise<{ productId: string }>;
+}) {
+  const { productId } = await params;
+
   const product = product_list.find(
-    (item) => item.id === Number.parseInt(params.productId)
+    (item) => item.id === Number.parseInt(productId)
   );
 
   if (product) {
