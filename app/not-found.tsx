@@ -5,12 +5,14 @@ import Image from "next/image";
 
 export default function NotFound() {
   return (
-    <section className="container w-full flex items-center justify-between min-h-screen max-h-[730px] py-0">
-      <div className="flex flex-col gap-7 max-w-[500px]">
-        <div className="flex flex-col gap-0">
-          <p className="text-primary font-bold text-[72px]">404</p>
+    <section className="container w-full flex flex-col lg:flex-row items-center max-h-fit lg:min-h-screen lg:justify-center gap-24">
+      <div className="flex flex-col max-lg:items-center gap-7 max-w-[500px] max-lg:pt-14">
+        <div className="flex flex-col max-lg:items-center gap-0">
+          <p className="text-primary font-bold text-[96px] md:text-[72px]">
+            404
+          </p>
 
-          <p className="text-primary text-xl font-bold -mt-2.5">
+          <p className="text-primary text-lg md:text-xl max-lg:text-center font-bold -mt-2.5">
             Opps! Nothing to see here, this page does not exist!
           </p>
         </div>
@@ -26,19 +28,21 @@ export default function NotFound() {
         </Button>
       </div>
 
-      <div className="flex items-center justify-center w-auto h-full bg-testimonial bg-cover bg-center">
+      <div className="relative flex items-end max-lg:justify-center w-full lg:w-fit h-fit lg:h-full lg:min-h-screen">
         <Image
-          src={`/assets/404.png`}
-          alt="Not Found"
+          src="/assets/not-2.jpg"
+          alt="DOAK alluminium can"
           width={226}
           height={574}
+          className="max-md:w-[134px] max-md:h-[201px]"
         />
 
         <Image
-          src={`/assets/not.jpg`}
-          alt="Not Found"
+          src="/assets/not.jpg"
+          alt="DOAK alluminium can"
           width={226}
           height={574}
+          className="max-md:w-[134px] max-md:h-[300px]"
         />
       </div>
     </section>
