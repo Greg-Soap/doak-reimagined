@@ -95,3 +95,26 @@ input[type="number"]::-webkit-outer-spin-button {
 input[type="number"] {
   -moz-appearance: textfield;
 }
+
+/* Width & Height */
+::-webkit-scrollbar {
+  width: 8px; /* Vertical scrollbar */
+  height: 8px; /* Horizontal scrollbar */
+}
+
+/* Track (the area behind the scrollbar) */
+::-webkit-scrollbar-track {
+  background: rgba(43, 43, 43, 0.5); /* Dark grey background */
+  border-radius: 4px;
+}
+
+/* Thumb (the draggable part of the scrollbar) */
+::-webkit-scrollbar-thumb {
+  background: #666; /* Medium grey */
+  border-radius: 4px;
+}
+
+/* Thumb on Hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #888; /* Lighter grey */
+}

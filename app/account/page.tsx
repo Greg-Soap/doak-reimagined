@@ -17,6 +17,8 @@ import VoucherTab from "./sections/voucher-tab";
 import { useState } from "react";
 import ProfileTab from "./sections/profile-tab";
 import OrderDetailsTab from "./sections/order-details-tab";
+import RateUsTab from "./sections/rate-us-tab";
+import HelpCenterTab from "./sections/help-center-tab";
 
 export default function AccountPage() {
   const [activeTab, setActiveTab] = useState<string>("profile");
@@ -57,6 +59,14 @@ export default function AccountPage() {
       element: (
         <OrderDetailsTab setActiveTab={setActiveTab} orderId={selectedOrder} />
       ),
+    },
+    {
+      value: "rate_our_services",
+      element: <RateUsTab />,
+    },
+    {
+      value: "help_center",
+      element: <HelpCenterTab />,
     },
   ];
 
