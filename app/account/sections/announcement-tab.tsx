@@ -44,8 +44,10 @@ function AnnouncementContent({ image, title, points }: Announcement) {
 
       <p className="text-primary font-medium">{title}</p>
 
-      {points.map((item) => (
-        <p className="text-sm text-primary">{item}</p>
+      {points.map((item, index) => (
+        <p key={index} className="text-sm text-primary">
+          {item}
+        </p>
       ))}
     </>
   );
