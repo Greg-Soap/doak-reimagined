@@ -1,3 +1,12 @@
+export interface Street {
+  value: string;
+  name: string;
+  address: string;
+  number: number;
+  city: string;
+  state: string;
+}
+
 export const street: Street[] = [
   {
     value: "option-one",
@@ -16,12 +25,3 @@ export const street: Street[] = [
     number: 2349030383868,
   },
 ];
-
-export interface Street {
-  value: string;
-  name: string;
-  address: string;
-  number: number;
-  city: string;
-  state: string;
-}

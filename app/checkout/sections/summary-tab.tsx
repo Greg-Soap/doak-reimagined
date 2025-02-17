@@ -6,6 +6,8 @@ import { IProduct } from "@/types/products";
 import { FormatNaira } from "@/utils/format-currency";
 import { useRouter } from "next/navigation";
 import CartItems from "@/components/custom/cart-item";
+import AddressDetails from "@/components/custom/address-details";
+import { street } from "@/app/data/address";
 
 export default function SummaryTab({
   setActiveTab,
@@ -31,11 +33,7 @@ export default function SummaryTab({
         name="Address"
         editFunction={() => setActiveTab("delivery")}
       >
-        <p className="text-primary text-sm font-semibold">Omonaluse Ohkuehne</p>
-        <p className="text-primary text-sm">
-          No 14, 19th street BDPA, Ugbowo, Benin City, Oyo State
-        </p>
-        <p className="text-primary text-sm">+2348180281937</p>
+        <AddressDetails item={street[0]} />
       </SummaryTabSections>
 
       <SummaryTabSections

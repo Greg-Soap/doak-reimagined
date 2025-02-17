@@ -30,13 +30,20 @@ const FormSchema = z.object({
     }),
 });
 
-export default function HelpCenterTab() {
+export default function HelpCenterTab({
+  setIsContentTabHidden,
+}: {
+  setIsContentTabHidden: (isContentTabHidden: boolean) => void;
+}) {
   return (
-    <TabSections name="Chat Support">
-      <div className="flex flex-col justify-end px-5 md:px-8 max-h-[450px] gap-7 pt-7 pb-5">
+    <TabSections
+      buttonFunction={() => setIsContentTabHidden(true)}
+      name="Chat Support"
+    >
+      <div className="flex flex-col justify-end px-5 md:px-8 max-md:min-h-[calc(100vh-200px)] max-h-[700px] md:max-h-[450px] gap-7 pt-7 pb-5">
         <div className="flex flex-col gap-5 max-h-[calc(100%-50px)] overflow-y-auto">
           {help_center_chats.map((item: HelpCenterChats) => (
-            <MessageBlock {...item} />
+            <MessageBlock key={item.message} {...item} />
           ))}
         </div>
         <MessageInput />

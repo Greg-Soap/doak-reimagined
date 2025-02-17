@@ -13,7 +13,7 @@ export default function TabSections({
   return (
     <section
       className={`w-full flex flex-col ${
-        name === "Order Details" && "border rounded-[10px]"
+        name === "Order Details" ? "border rounded-[10px]" : ""
       } border-border`}
     >
       <div className="flex md:border-b border-border pb-3 px-5 md:py-3 md:px-9">

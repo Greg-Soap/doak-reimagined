@@ -18,6 +18,10 @@ import { Textarea } from "@/components/ui/textarea";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { useState } from "react";
 import { StarIcon } from "@radix-ui/react-icons";
+import EmptyState from "../components/empty-component";
+import Link from "next/link";
+import Image from "next/image";
+import { cartWhiteIcon } from "@/components/icons";
 
 const formSchema = z.object({
   rating: z.string(),
@@ -29,15 +33,34 @@ const formSchema = z.object({
     .min(10, { message: "Message must be at least 10 characters long." }),
 });
 
-export default function RateUsTab() {
+export default function RateUsTab({
+  setIsContentTabHidden,
+}: {
+  setIsContentTabHidden: (isContentTabHidden: boolean) => void;
+}) {
+  const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
+
   return (
-    <TabSections name="Review Our Services">
-      <FeedbackForm />
+    <TabSections
+      buttonFunction={() => setIsContentTabHidden(true)}
+      name="Review Our Services"
+    >
+      {isSubmitted ? (
+        <div className="w-full h-full flex items-center justify-center">
+          <SubmittedFormState />
+        </div>
+      ) : (
+        <FeedbackForm setIsSubmitted={setIsSubmitted} />
+      )}
     </TabSections>
   );
 }
 
-function FeedbackForm() {
+function FeedbackForm({
+  setIsSubmitted,
+}: {
+  setIsSubmitted: (isSubmitted: boolean) => void;
+}) {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -49,6 +72,7 @@ function FeedbackForm() {
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     console.log(values);
+    setIsSubmitted(true);
   }
 
   const [selectedRating, setSelectedRating] = useState("");
@@ -145,5 +169,17 @@ function FeedbackForm() {
         </Button>
       </form>
     </Form>
+  );
+}
+
+function SubmittedFormState() {
+  return (
+    <EmptyState
+      type="feedback"
+      image="/assets/account/ratings.png"
+      alt="Thumbs up"
+      title="Your review has been submitted"
+      caption="Thank you for rating our services"
+    />
   );
 }

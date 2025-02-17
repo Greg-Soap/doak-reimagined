@@ -1,3 +1,5 @@
+"use client";
+
 import EmptyState from "../components/empty-component";
 import TabSections from "../components/tab-sections";
 import Image from "next/image";
@@ -5,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { OrderProps, orders } from "@/app/data/orders";
 import { truncate } from "@/app/lib/truncate";
 import OrderStatusBadge from "../components/order-status-badge";
+import { useRouter } from "next/navigation";
 
 export default function OrderTab({
   setIsContentTabHidden,
@@ -15,6 +18,8 @@ export default function OrderTab({
   setSelectedOrder: (selectedOrder: string) => void;
   setActiveTab: (activeTab: string) => void;
 }) {
+  const router = useRouter();
+
   return (
     <TabSections
       name="All Orders"
@@ -37,6 +42,9 @@ export default function OrderTab({
                 buttonFunction={() => {
                   setSelectedOrder(item.order_number);
                   setActiveTab("order-details");
+                  router.push(
+                    `/account?tab=order-details&orderId=${item.order_number}`
+                  );
                 }}
               />
             ))}
@@ -62,36 +70,38 @@ function AllOrdersCard({
     .join(", ");
 
   return (
-    <div className="w-full flex items-center justify-between py-3 pl-[18px] pr-7 border border-border rounded-[10px]">
-      <div className="flex flex-col w-fit gap-3">
-        <div className="flex items-center gap-1.5">
-          <p className="text-sm text-primary">{`Order No. ${item.order_number}`}</p>
+    <div className="w-full flex flex-col items-center justify-between py-3 pl-[18px] pr-7 border border-border rounded-[10px] gap-4">
+      <div className="w-full flex items-center gap-1.5">
+        <p className="text-sm text-primary min-w-fit">{`Order No. ${item.order_number}`}</p>
 
-          <OrderStatusBadge status={item.status} />
-        </div>
-
-        <div className="flex items-center gap-1">
-          {item.items_ordered.map((product) => (
-            <Image
-              key={product.name}
-              src={product.image}
-              alt={product.name}
-              width={32}
-              height={32}
-              className="rounded-[4px]"
-            />
-          ))}
-        </div>
-
-        <p className="text-xs text-primary">{truncate(itemNames, 90)}</p>
+        <OrderStatusBadge status={item.status} />
       </div>
 
-      <Button
-        onClick={buttonFunction}
-        className="text-sm text-[#FF3426] bg-transparent hover:bg-transparent p-1 shadow-none"
-      >
-        View Details
-      </Button>
+      <div className="w-full flex items-start justify-between">
+        <div className="flex flex-col w-fit gap-3">
+          <div className="flex items-center gap-1">
+            {item.items_ordered.map((product) => (
+              <Image
+                key={product.name}
+                src={product.image}
+                alt={product.name}
+                width={32}
+                height={32}
+                className="rounded-[4px]"
+              />
+            ))}
+          </div>
+
+          <p className="text-xs text-primary">{truncate(itemNames, 90)}</p>
+        </div>
+
+        <Button
+          onClick={buttonFunction}
+          className="text-sm text-[#FF3426] bg-transparent hover:bg-transparent p-1 shadow-none"
+        >
+          View Details
+        </Button>
+      </div>
     </div>
   );
 }

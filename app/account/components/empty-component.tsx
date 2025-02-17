@@ -1,6 +1,8 @@
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { cartWhiteIcon } from "@/components/icons";
+import Link from "next/link";
+import { cn } from "@/lib/utils";
 
 export default function EmptyState({
   image,
@@ -13,7 +15,7 @@ export default function EmptyState({
   alt: string;
   title: string;
   caption: string;
-  type?: boolean;
+  type?: "feedback" | "address";
 }) {
   return (
     <div className="flex flex-col items-center gap-6 w-fit py-16 md:px-10 lg:px-0">
@@ -25,14 +27,37 @@ export default function EmptyState({
         <p className="text-xs text-primary text-center">{caption}</p>
       </div>
       <Button
-        variant={type ? `outline` : `black`}
-        className={`w-fit flex items-center gap-2 h-12 ${
-          type && "border-black"
-        }`}
+        asChild={type === "feedback"}
+        variant={getButtonVariant(type ? type : "")}
+        className={cn(
+          "w-fit flex items-center gap-2 h-12",
+          type === "address" && "border-black"
+        )}
       >
-        {type ? "+ " : <Image src={cartWhiteIcon} alt="icon" />}
-        {type ? "Add New Address" : "Start Shopping"}
+        {getButtonContent(type ? type : "")}
       </Button>
     </div>
   );
 }
+
+const getButtonVariant = (type: string) => {
+  if (type === "address") return "outline";
+  return "black";
+};
+
+const getButtonContent = (type: string) => {
+  if (type === "feedback") {
+    return (
+      <Link href="/">
+        <Image src={cartWhiteIcon} alt="icon" /> Continue Shopping
+      </Link>
+    );
+  }
+
+  return (
+    <>
+      {type === "address" ? "+" : <Image src={cartWhiteIcon} alt="icon" />}
+      {type === "address" ? "Add New Address" : "Start Shopping"}
+    </>
+  );
+};
