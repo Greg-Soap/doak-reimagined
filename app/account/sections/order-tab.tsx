@@ -25,7 +25,7 @@ export default function OrderTab({
       name="All Orders"
       buttonFunction={() => setIsContentTabHidden(true)}
     >
-      <div className="w-full flex flex-col gap-5 items-center px-5 md:px-8 py-7">
+      <div className="w-full flex flex-col gap-5 items-center px-0 md:px-8 py-7">
         {orders.length === 0 ? (
           <EmptyState
             image="/assets/account/empty-bottle.png"

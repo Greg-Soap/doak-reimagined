@@ -1,9 +1,12 @@
+"use client";
+
 import { orders, ItemsOrderedProps } from "@/app/data/orders";
 import TabSections from "../components/tab-sections";
 import OrderStatusBadge from "../components/order-status-badge";
 import CartItems from "@/components/custom/cart-item";
 import { FormatNaira } from "@/utils/format-currency";
 import OrderCancellationDialog from "./order-cancellation-dialog";
+import { useRouter } from "next/navigation";
 
 export default function OrderDetailsTab({
   setActiveTab,
@@ -12,6 +15,8 @@ export default function OrderDetailsTab({
   setActiveTab: (activeTab: string) => void;
   orderId: string;
 }) {
+  const router = useRouter();
+
   const selectedOrder = orders.find((item) => item.order_number === orderId);
 
   if (!selectedOrder) {
@@ -21,7 +26,10 @@ export default function OrderDetailsTab({
   return (
     <TabSections
       name="Back To All Orders"
-      buttonFunction={() => setActiveTab("orders")}
+      buttonFunction={() => {
+        setActiveTab("orders");
+        router.push("/account?tab=orders");
+      }}
     >
       <div className="w-full flex flex-col items-center gap-10 p-5 md:p-10">
         <div className="flex flex-row items-center w-full md:w-fit">

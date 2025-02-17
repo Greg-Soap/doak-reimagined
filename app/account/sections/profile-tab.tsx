@@ -63,7 +63,7 @@ export default function ProfileTab({
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className="w-full grid md:grid-cols-2 px-5 py-7 md:px-10 md:py-8 gap-7"
+          className="w-full grid md:grid-cols-2 px-0 py-7 md:px-10 md:py-8 gap-7"
         >
           {formDetails.map((item: FormProps, index: number) => (
             <FormField

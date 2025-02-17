@@ -24,7 +24,7 @@ export default function AddressTab({
       name="Saved Address"
       buttonFunction={() => setIsContentTabHidden(true)}
     >
-      <div className="w-full flex flex-col items-center px-5 py-7 gap-5">
+      <div className="w-full flex flex-col items-center md:px-8 py-7 gap-5">
         {street.length === 0 ? (
           <EmptyState
             type="address"
@@ -49,7 +49,7 @@ function Address({ item }: { item: Street }) {
           <AddressDetails item={item} />
         </div>
 
-        <div className="w-full border-t border-border flex h-[49px]">
+        <div className="w-full border-t border-border flex md:hidden h-[49px]">
           <div className="flex items-center justify-center w-1/2 border-r border-border">
             <EditDialog type="edit-address" selectedAddress={item} />
           </div>
@@ -76,7 +76,7 @@ function DeleteAddressDialog({ item }: { item: Street }) {
     <Dialog>
       <DialogTrigger>
         <TrashIcon className="stroke-[#FF3426] hidden md:flex" />
-        <p className="text-[#FF3426] text-sm">Delete</p>
+        <p className="text-[#FF3426] text-sm md:hidden">Delete</p>
       </DialogTrigger>
       <DialogContent className="rounded-[10px]">
         <DialogHeader>

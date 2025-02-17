@@ -81,7 +81,7 @@ function FeedbackForm({
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="flex flex-col items-center space-y-8 px-5 md:px-8 py-7"
+        className="flex flex-col items-center space-y-8 px-0 md:px-8 py-7"
       >
         <FormField
           control={form.control}

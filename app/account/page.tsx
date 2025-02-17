@@ -19,16 +19,21 @@ import OrderDetailsTab from "./sections/order-details-tab";
 import RateUsTab from "./sections/rate-us-tab";
 import HelpCenterTab from "./sections/help-center-tab";
 import { useSearchParams, useRouter } from "next/navigation";
+import AnnouncementTab from "./sections/announcement-tab";
 
 export default function AccountPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const currentTab = searchParams.get("tab") || "profile";
   const orderIdFromUrl = searchParams.get("orderId");
+  const announcementIdFromUrl = searchParams.get("announcementId");
 
   const [activeTab, setActiveTab] = useState<string>(currentTab);
   const [selectedOrder, setSelectedOrder] = useState<string>(
     orderIdFromUrl || ""
+  );
+  const [selectedAnnouncement, setSelectedAnnouncement] = useState<string>(
+    announcementIdFromUrl || ""
   );
   const [isTabContentHidden, setIsTabContentHidden] = useState<boolean>(true);
 
@@ -38,7 +43,7 @@ export default function AccountPage() {
     if (orderIdFromUrl) {
       setSelectedOrder(orderIdFromUrl);
     }
-  }, [currentTab, orderIdFromUrl]);
+  }, [currentTab, orderIdFromUrl, announcementIdFromUrl]);
 
   const handleTabChange = (value: string) => {
     router.push(`/account?tab=${value}`);
@@ -63,7 +68,10 @@ export default function AccountPage() {
     {
       value: "notifications",
       element: (
-        <NotificationTab setIsContentTabHidden={setIsTabContentHidden} />
+        <NotificationTab
+          setActiveTab={setActiveTab}
+          setIsContentTabHidden={setIsTabContentHidden}
+        />
       ),
     },
     {
@@ -87,6 +95,15 @@ export default function AccountPage() {
     {
       value: "help_center",
       element: <HelpCenterTab setIsContentTabHidden={setIsTabContentHidden} />,
+    },
+    {
+      value: "announcement",
+      element: (
+        <AnnouncementTab
+          setActiveTab={setActiveTab}
+          announcementId={selectedAnnouncement}
+        />
+      ),
     },
   ];
 

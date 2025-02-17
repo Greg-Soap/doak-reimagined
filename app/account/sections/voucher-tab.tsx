@@ -27,7 +27,7 @@ export default function VoucherTab({
             caption="All available vouchers will appear here"
           />
         ) : (
-          <div className="w-full grid gap-6 px-5 lg:grid-cols-2 p-7">
+          <div className="w-full grid gap-6 md:px-8 lg:grid-cols-2 p-7">
             {voucher.map((item: Voucher) => (
               <VoucherTabs key={item.code} item={item} />
             ))}

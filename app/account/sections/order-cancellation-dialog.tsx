@@ -119,7 +119,10 @@ export default function OrderCancellationDialog() {
                       className="flex flex-col space-y-4"
                     >
                       {radioReasons.map((item) => (
-                        <FormItem className="flex items-center space-x-3 space-y-0 p-2.5 border border-border rounded-[10px]">
+                        <FormItem
+                          key={item}
+                          className="flex items-center space-x-3 space-y-0 p-2.5 border border-border rounded-[10px]"
+                        >
                           <FormControl>
                             <RadioGroupItem value={item} />
                           </FormControl>
