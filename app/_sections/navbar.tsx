@@ -41,13 +41,9 @@ function Logo() {
 
 function Search() {
   return (
-    <div className="lg:max-w-[520px] w-full col-span-3 flex items-center justify-between px-4 py-1 pr-1 border border-input rounded-lg md:max-w-[375px]">
+    <div className="lg:max-w-[520px] w-full col-span-3 flex items-center justify-between bg-[#FAFAFA] p-[5px] pl-[14px] border border-input rounded-lg md:max-w-[375px]">
       <div className="flex items-center w-full">
-        <Image
-          src={searchIcon}
-          alt="search"
-          className="w-5 h-5 flex lg:hidden"
-        />
+        <Image src={searchIcon} alt="search" className="w-5 h-5 flex" />
         <Input
           placeholder="Search drinks in any category"
           className="border-none outline-none bg-transparent shadow-none focus-visible:ring-0 "

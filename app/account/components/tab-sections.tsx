@@ -26,7 +26,7 @@ export default function TabSections({
             hidden:
               name === "Back To All Orders" ||
               name === "Back to All Notifications",
-            "hidden md:flex":
+            "hidden xl:flex":
               name !== "Back To All Orders" &&
               name !== "Back to All Notifications",
           })}
@@ -50,7 +50,7 @@ export default function TabSections({
                 name === "Back To All Orders" ||
                 name === "Back to All Notifications",
               hidden: name === "Order Details",
-              "flex md:hidden":
+              "flex xl:hidden":
                 name !== "Back To All Orders" &&
                 name !== "Back to All Notifications" &&
                 name !== "Order Details",

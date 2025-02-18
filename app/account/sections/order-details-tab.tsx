@@ -7,6 +7,7 @@ import CartItems from "@/components/custom/cart-item";
 import { FormatNaira } from "@/utils/format-currency";
 import OrderCancellationDialog from "./order-cancellation-dialog";
 import { useRouter } from "next/navigation";
+import TrackOrder from "@/components/custom/track-order";
 
 export default function OrderDetailsTab({
   setActiveTab,
@@ -31,16 +32,9 @@ export default function OrderDetailsTab({
         router.push("/account?tab=orders");
       }}
     >
-      <div className="w-full flex flex-col items-center gap-10 p-5 md:p-10">
+      <div className="w-full flex flex-col items-center gap-10 px-0 py-5 md:p-10">
         <div className="flex flex-row items-center w-full md:w-fit">
-          {steps.map((item: StepsProps) => (
-            <StepsTracker
-              key={item.id}
-              id={item.id}
-              name={item.name}
-              completed={item.completed}
-            />
-          ))}
+          <TrackOrder status={selectedOrder.status} />
         </div>
 
         <div className="flex flex-col w-full gap-2">
@@ -72,36 +66,6 @@ export default function OrderDetailsTab({
         </div>
       </div>
     </TabSections>
-  );
-}
-
-function StepsTracker({ id, name, completed }: StepsProps) {
-  return (
-    <div className={`flex flex-col items-end`}>
-      <div className="flex items-center">
-        <div
-          className={`${
-            id === 1 ? "hidden" : "flex"
-          } w-[82px] md:w-[154px] h-0.5 ${
-            completed ? "bg-[#FF3426]" : "bg-border"
-          }`}
-        />
-        <p
-          className={`w-4 h-4 text-center text-[10px] font-semibold rounded-full border-border ${
-            completed ? "bg-[#FF3426] text-white" : "border text-border"
-          }`}
-        >
-          {id}
-        </p>
-      </div>
-      <p
-        className={`w-fit text-[10px] font-semibold -mr-4 ${
-          completed ? "text-primary" : "text-border"
-        }`}
-      >
-        {name}
-      </p>
-    </div>
   );
 }
 
@@ -190,15 +154,35 @@ function DetailsBlock({
   );
 }
 
-const steps: StepsProps[] = [
-  { id: 1, name: "Order Placed", completed: true },
-  { id: 2, name: "Confirmed", completed: false },
-  { id: 3, name: "Shipped", completed: false },
-  { id: 4, name: "Delivered", completed: false },
-];
-
-interface StepsProps {
-  id: number;
-  name: string;
-  completed: boolean;
+{
+  /**
+  function StepsTracker({ id, name, completed }: StepsProps) {
+  return (
+    <div className={`flex flex-col items-end`}>
+      <div className="flex items-center">
+        <div
+          className={`${
+            id === 1 ? "hidden" : "flex"
+          } w-[82px] md:w-[154px] h-0.5 ${
+            completed ? "bg-[#FF3426]" : "bg-border"
+          }`}
+        />
+        <p
+          className={`w-4 h-4 text-center text-[10px] font-semibold rounded-full border-border ${
+            completed ? "bg-[#FF3426] text-white" : "border text-border"
+          }`}
+        >
+          {id}
+        </p>
+      </div>
+      <p
+        className={`w-fit text-[10px] font-semibold -mr-4 ${
+          completed ? "text-primary" : "text-border"
+        }`}
+      >
+        {name}
+      </p>
+    </div>
+  );
+} */
 }

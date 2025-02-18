@@ -118,8 +118,8 @@ export default function AccountPage() {
       >
         <TabsList
           className={`${
-            isTabContentHidden ? "flex" : "max-md:hidden"
-          } flex flex-col bg-transparent gap-5 w-full md:w-[260px] h-fit md:px-0 bg-white rounded-[10px] border border-border`}
+            isTabContentHidden ? "flex" : "max-xl:hidden"
+          } flex flex-col bg-transparent gap-5 w-full xl:w-[260px] h-fit md:px-0 bg-white rounded-[10px] border border-border`}
         >
           <p className="w-full text-center py-3 text-primary font-semibold border-b border-border">
             My Doak Account
@@ -153,7 +153,7 @@ export default function AccountPage() {
 
           <Button
             variant={`outline`}
-            className="w-full md:w-[90%] py-2.5 font-semibold border-black text-black mb-2"
+            className="w-[90%] py-2.5 font-semibold border-black text-black mb-2"
           >
             Log Out
           </Button>
@@ -163,8 +163,8 @@ export default function AccountPage() {
             key={item.value}
             value={item.value}
             className={`${
-              isTabContentHidden ? "max-md:hidden" : ""
-            } w-full md:w-[90%] xl:w-[842px] rounded-[10px] bg-white md:border border-border mt-0`}
+              isTabContentHidden ? "max-xl:hidden" : ""
+            } w-full xl:w-[842px] rounded-[10px] bg-white md:border border-border mt-0`}
           >
             {item.element}
           </TabsContent>

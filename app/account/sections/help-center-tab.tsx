@@ -42,9 +42,17 @@ export default function HelpCenterTab({
     >
       <div className="flex flex-col justify-end px-0 md:px-8 max-md:min-h-[calc(100vh-200px)] max-h-[700px] md:max-h-[450px] gap-7 pt-7 pb-5">
         <div className="flex flex-col gap-5 max-h-[calc(100%-50px)] overflow-y-auto">
-          {help_center_chats.map((item: HelpCenterChats) => (
-            <MessageBlock key={item.message} {...item} />
-          ))}
+          {help_center_chats.length === 0 ? (
+            <p className="text-primary text-xs italic w-full text-center">
+              -This conversation begins here-
+            </p>
+          ) : (
+            <>
+              {help_center_chats.map((item: HelpCenterChats) => (
+                <MessageBlock key={item.message} {...item} />
+              ))}
+            </>
+          )}
         </div>
         <MessageInput />
       </div>

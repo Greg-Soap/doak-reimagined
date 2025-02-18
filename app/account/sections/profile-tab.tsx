@@ -15,6 +15,17 @@ import {
 import { Input } from "@/components/ui/input";
 import TabSections from "../components/tab-sections";
 import EditDialog from "@/components/custom/edit-dialog";
+import { Street, street } from "@/app/data/address";
+import AddressDetails from "@/components/custom/address-details";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 
 const formSchema = z.object({
   first_name: z.string().min(2, {
@@ -34,6 +45,12 @@ const formSchema = z.object({
     .max(14, {
       message: "Phone number too long.",
     }),
+  default_address: z.enum(
+    street.map((item) => item.address) as [string, ...string[]],
+    {
+      required_error: "You need to select a default address.",
+    }
+  ),
 });
 
 export default function ProfileTab({
@@ -48,11 +65,12 @@ export default function ProfileTab({
       last_name: "",
       email: "",
       phone: "",
+      default_address: street[0]?.address,
     },
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
+    console.log("Form submitted with values:", values);
   }
 
   return (
@@ -88,7 +106,11 @@ export default function ProfileTab({
             />
           ))}
 
-          <EditDialog type="profile-address" />
+          {street.length === 0 ? (
+            <EditDialog type="profile-address" />
+          ) : (
+            <DefaultAddress item={street[0]} />
+          )}
 
           <Button
             variant={`black`}
@@ -100,6 +122,100 @@ export default function ProfileTab({
         </form>
       </Form>
     </TabSections>
+  );
+}
+
+function DefaultAddress({ item }: { item: Street }) {
+  return (
+    <div className="md:col-span-2 flex items-center justify-between border border-border px-7 py-3 rounded-[10px]">
+      <div className="flex flex-col gap-2">
+        <AddressDetails item={item} />
+      </div>
+
+      {street.length > 1 && <ChangeDefaultAddressDialog />}
+    </div>
+  );
+}
+
+function ChangeDefaultAddressDialog() {
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      default_address: street[0].address,
+      first_name: "",
+      last_name: "",
+      email: "",
+      phone: "",
+    },
+  });
+
+  function onSubmit(values: z.infer<typeof formSchema>) {
+    console.log(values);
+  }
+
+  return (
+    <Dialog>
+      <DialogTrigger className="bg-transparent hover:bg-transparent p-1 w-fit h-fit text-sm text-[#FF3426] shadow-none">
+        Change
+      </DialogTrigger>
+      <DialogContent>
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)}>
+            <DialogHeader>
+              <DialogTitle className="text-xl text-primary font-semibold">
+                Select Default Address
+              </DialogTitle>
+              <DialogDescription className="sr-only">
+                This will change the default address your drinks will be
+                delivered to.
+              </DialogDescription>
+            </DialogHeader>
+
+            <FormField
+              control={form.control}
+              name="default_address"
+              render={({ field }) => (
+                <FormItem className="space-y-3">
+                  <FormLabel className="sr-only">Default Address</FormLabel>
+                  <FormControl>
+                    <RadioGroup
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                      className="flex flex-col space-y-1"
+                    >
+                      {street.map((item: Street) => (
+                        <FormItem
+                          key={item.name}
+                          className="flex space-x-3 space-y-0"
+                        >
+                          <FormControl>
+                            <RadioGroupItem value={item.address} />
+                          </FormControl>
+                          <FormLabel
+                            className={`w-full flex flex-col gap-2 px-5 py-3 border rounded-[10px] ${
+                              field.value === item.address
+                                ? "border-black"
+                                : "border-border"
+                            }`}
+                          >
+                            <AddressDetails item={item} />
+                          </FormLabel>
+                        </FormItem>
+                      ))}
+                    </RadioGroup>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <Button type="submit" className="mt-4">
+              Save Changes
+            </Button>
+          </form>
+        </Form>
+      </DialogContent>
+    </Dialog>
   );
 }
 

@@ -36,6 +36,13 @@ export default function AddressTab({
         ) : (
           street.map((item) => <Address key={item.name} item={item} />)
         )}
+
+        {street.length === 3 && (
+          <p className="text-[#656565] text-xs italic">
+            -You have reached the maximum number of saved addresses, to add a
+            new address delete an old address-
+          </p>
+        )}
       </div>
     </TabSections>
   );
