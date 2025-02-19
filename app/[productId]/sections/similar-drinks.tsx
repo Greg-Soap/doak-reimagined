@@ -16,7 +16,7 @@ export default function SimilarProducts({
       <p className="text-2xl md:text-[32px] font-bold text-primary">{name}</p>
 
       <div className="flex flex-col gap-5 items-center">
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5">
+        <div className="w-full grid md:grid-cols-2 lg:grid-cols-4 gap-5">
           {product_list
             .slice(0, length ? length : 8)
             .map((product: IProduct) => (

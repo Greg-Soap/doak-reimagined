@@ -27,7 +27,7 @@ export default function VoucherTab({
             caption="All available vouchers will appear here"
           />
         ) : (
-          <div className="w-full grid gap-6 md:px-8 lg:grid-cols-2 p-7">
+          <div className="w-full grid gap-6 md:px-8 lg:grid-cols-2 py-7">
             {voucher.map((item: Voucher) => (
               <VoucherTabs key={item.code} item={item} />
             ))}
@@ -50,7 +50,7 @@ function VoucherTabs({ item }: { item: Voucher }) {
   };
 
   return (
-    <div className="flex items-center justify-between border border-border rounded-[10px] py-3 px-7">
+    <div className="w-full flex items-center justify-between border border-border rounded-[10px] py-3 px-7">
       <div className="flex flex-col gap-2">
         <p className="text-sm text-primary">
           <span className="font-bold text-[#FF3426]">{item.discount} OFF</span>{" "}

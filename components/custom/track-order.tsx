@@ -2,7 +2,7 @@ import clsx from "clsx";
 
 export default function TrackOrder({ status }: { status: string }) {
   return (
-    <div className="flex md:hidden xl:flex items-center w-full md::w-fit">
+    <div className="flex items-center justify-center w-full md:w-fit max-md:ml-[-20px]">
       <div className="flex flex-col items-center">
         <p className="w-4 h-4 flex items-center justify-center text-[10px] font-semibold rounded-full bg-[#FF3426] text-white">
           1

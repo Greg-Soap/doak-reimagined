@@ -60,7 +60,7 @@ export default function Newsletter() {
                     <Input
                       placeholder="eg. daniellaokere445@gmail.com"
                       {...field}
-                      className="ring-0 ring-none p-0 bg-transparent text-sm border-none outline-none w-full"
+                      className="ring-0 ring-none p-0 bg-transparent text-sm border-none outline-none w-full shadow-none"
                     />
                   </FormControl>
                   <FormMessage />

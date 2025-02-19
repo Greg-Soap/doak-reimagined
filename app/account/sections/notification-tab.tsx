@@ -66,6 +66,8 @@ function NotificationCard({
   details: string;
   setActiveTab: (activeTab: string) => void;
 }) {
+  const router = useRouter();
+
   return (
     <div className="w-full flex items-center justify-between border border-border rounded-[10px] py-3 px-7">
       <div className="flex flex-col gap-2">

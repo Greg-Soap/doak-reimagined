@@ -43,6 +43,9 @@ export default function AccountPage() {
     if (orderIdFromUrl) {
       setSelectedOrder(orderIdFromUrl);
     }
+    if (announcementIdFromUrl) {
+      setSelectedAnnouncement(announcementIdFromUrl);
+    }
   }, [currentTab, orderIdFromUrl, announcementIdFromUrl]);
 
   const handleTabChange = (value: string) => {

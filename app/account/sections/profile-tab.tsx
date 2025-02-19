@@ -158,7 +158,7 @@ function ChangeDefaultAddressDialog() {
       <DialogTrigger className="bg-transparent hover:bg-transparent p-1 w-fit h-fit text-sm text-[#FF3426] shadow-none">
         Change
       </DialogTrigger>
-      <DialogContent>
+      <DialogContent className="rounded-[10px]">
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>
             <DialogHeader>

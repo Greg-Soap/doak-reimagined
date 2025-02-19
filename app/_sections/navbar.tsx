@@ -11,7 +11,6 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import UserIcon from "@/components/icons/user";
@@ -63,14 +62,7 @@ function NavMenu() {
       style={{ gridColumn: "3 / span 1", gridRow: "1 / span 1" }}
     >
       <IconNotification notification icon={bellIcon} />
-      {/* <Button
-        variant={"outline"}
-        className="p-0 lg:border lg:py-2 lg:px-[14px] shadow-none border-border gap-1.5"
-      >
-        <Image src={userIcon} alt="user" className="icon" />
-        <p className="hidden lg:flex">Account</p>
-        <ChevronDownIcon width={24} height={24} />
-      </Button> */}
+
       <AccountDropDownMenu user={false} />
 
       <IconNotification notification icon={cartIcon} />
@@ -130,12 +122,12 @@ function AccountDropDownMenu({ user }: { user: boolean }) {
 
 const dropdownLinks = [
   {
-    href: "/account",
+    href: "/account?tab=profile",
     icon: <UserIcon className="w-6 h-6 stroke-[#292D32]" />,
     name: "My Account",
   },
   {
-    href: "/account",
+    href: "/account?tab-orders",
     icon: <OrderIcon className="w-6 h-6 stroke-[#292D32]" />,
     name: "Orders",
   },

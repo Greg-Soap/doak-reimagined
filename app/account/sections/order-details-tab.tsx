@@ -33,9 +33,7 @@ export default function OrderDetailsTab({
       }}
     >
       <div className="w-full flex flex-col items-center gap-10 px-0 py-5 md:p-10">
-        <div className="flex flex-row items-center w-full md:w-fit">
-          <TrackOrder status={selectedOrder.status} />
-        </div>
+        <TrackOrder status={selectedOrder.status} />
 
         <div className="flex flex-col w-full gap-2">
           <OrderStatusBadge status={selectedOrder.status} />

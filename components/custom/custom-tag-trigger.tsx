@@ -7,7 +7,7 @@ export default function CustomTagTrigger({ value, name, className }: TabProps) {
       value={value}
       className={clsx(
         "flex flex-col text-center text-xs text-secondary font-bold data-[state=active]:bg-transparent data-[state=active]:shadow-none data-[state=active]:text-primary group",
-        { "w-1/2": !className, className: className }
+        { "w-1/2": !className, [className || ""]: !!className }
       )}
     >
       {name}

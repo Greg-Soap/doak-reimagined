@@ -84,7 +84,7 @@ export default function OrderCancellationDialog() {
           Cancel Order
         </Button>
       </DialogTrigger>
-      <DialogContent className="flex flex-col items-center">
+      <DialogContent className="flex flex-col items-center rounded-[10px]">
         <DialogHeader>
           <DialogTitle className="text-xl font-semibold text-center">
             Order Cancellation

@@ -33,7 +33,7 @@ export default function ProductInformation({ product }: { product: IProduct }) {
           className="rounded-[10px] h-full"
         />
 
-        <div className="w-full max-w-[426px] flex flex-col sm:border gap-7 border-border bg-[#FCFCFC] rounded-[10px] sm:px-[25px] sm:py-[30px]">
+        <div className="w-full max-w-[426px] flex flex-col sm:border gap-7 border-border bg-transparent md:bg-[#FCFCFC] rounded-[10px] sm:px-[25px] sm:py-[30px]">
           <div className="flex flex-col">
             <p className="text-[#FF3426] text-sm font-semibold">
               {product.type}

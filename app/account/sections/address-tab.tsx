@@ -1,3 +1,5 @@
+"use client";
+
 import TabSections from "../components/tab-sections";
 import EmptyState from "../components/empty-component";
 import { street, Street } from "@/app/data/address";
@@ -13,6 +15,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import AddressDetails from "@/components/custom/address-details";
+import { useState } from "react";
 
 export default function AddressTab({
   setIsContentTabHidden,
@@ -50,19 +53,17 @@ export default function AddressTab({
 
 function Address({ item }: { item: Street }) {
   return (
-    <div className="w-full flex items-center justify-between md:py-4 md:px-6 border border-border rounded-[10px]">
-      <div className="flex flex-col gap-2">
-        <div className="w-full max-md:py-4 max-md:px-6">
-          <AddressDetails item={item} />
-        </div>
+    <div className="w-full flex flex-col md:flex-row items-center md:justify-between md:py-4 md:px-6 border border-border rounded-[10px]">
+      <div className="w-full max-md:py-4 max-md:px-6 flex flex-col max-md:gap-1.5">
+        <AddressDetails item={item} />
+      </div>
 
-        <div className="w-full border-t border-border flex md:hidden h-[49px]">
-          <div className="flex items-center justify-center w-1/2 border-r border-border">
-            <EditDialog type="edit-address" selectedAddress={item} />
-          </div>
-          <div className="flex items-center justify-center w-1/2">
-            <DeleteAddressDialog item={item} />
-          </div>
+      <div className="w-full border-t border-border flex md:hidden h-[49px]">
+        <div className="flex items-center justify-center w-1/2 border-r border-border">
+          <EditDialog type="edit-address" selectedAddress={item} />
+        </div>
+        <div className="flex items-center justify-center w-1/2">
+          <DeleteAddressDialog item={item} />
         </div>
       </div>
 
@@ -70,7 +71,6 @@ function Address({ item }: { item: Street }) {
         <EditDialog type="edit-address" selectedAddress={item} />
 
         <Button className="bg-transparent hover:bg-transparent shadow-none p-1 w-fit h-fit">
-          {/* <TrashIcon className="stroke-[#FF3426]" /> */}
           <DeleteAddressDialog item={item} />
         </Button>
       </div>
@@ -79,11 +79,13 @@ function Address({ item }: { item: Street }) {
 }
 
 function DeleteAddressDialog({ item }: { item: Street }) {
+  const [open, setOPen] = useState<boolean>(false);
+
   return (
-    <Dialog>
-      <DialogTrigger>
+    <Dialog open={open} onOpenChange={setOPen}>
+      <DialogTrigger className="max-md:w-full">
         <TrashIcon className="stroke-[#FF3426] hidden md:flex" />
-        <p className="text-[#FF3426] text-sm md:hidden">Delete</p>
+        <p className="text-[#FF3426] text-sm md:hidden max-md:w-full">Delete</p>
       </DialogTrigger>
       <DialogContent className="rounded-[10px]">
         <DialogHeader>
@@ -99,7 +101,13 @@ function DeleteAddressDialog({ item }: { item: Street }) {
           <AddressDetails item={item} />
         </div>
 
-        <Button variant={`black`} className="w-fit">
+        <Button
+          onClick={() => {
+            setOPen(false);
+          }}
+          variant={`black`}
+          className="w-fit"
+        >
           Delete Address
         </Button>
       </DialogContent>
