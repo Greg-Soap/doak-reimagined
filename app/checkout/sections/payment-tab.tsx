@@ -29,7 +29,7 @@ export default function PaymentTab() {
         </div>
       </TabsContent>
       <TabsContent value="transfer" className="w-full">
-        <div className="w-full h-fit flex">
+        <div className="w-full h-fit flex justify-center">
           <TransferTab />
         </div>
       </TabsContent>

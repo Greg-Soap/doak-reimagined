@@ -30,7 +30,7 @@ export default function ShoppingCart() {
 
         <CartSummary className="hidden md:flex">
           <Button asChild variant={`black`} className={`flex`}>
-            <Link href={`/checkout`}>Check Out</Link>
+            <Link href={`/checkout?checkoutTab=delivery`}>Check Out</Link>
           </Button>
         </CartSummary>
 

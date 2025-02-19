@@ -1,10 +1,16 @@
 import { TabsTrigger } from "../ui/tabs";
 import clsx from "clsx";
 
-export default function CustomTagTrigger({ value, name, className }: TabProps) {
+export default function CustomTagTrigger({
+  value,
+  name,
+  className,
+  disabled,
+}: TabProps) {
   return (
     <TabsTrigger
       value={value}
+      disabled={disabled ? disabled : false}
       className={clsx(
         "flex flex-col text-center text-xs text-secondary font-bold data-[state=active]:bg-transparent data-[state=active]:shadow-none data-[state=active]:text-primary group",
         { "w-1/2": !className, [className || ""]: !!className }
@@ -20,4 +26,5 @@ interface TabProps {
   value: string;
   name: string;
   className?: string;
+  disabled?: boolean;
 }
