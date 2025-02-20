@@ -136,7 +136,7 @@ export default function AccountPage() {
                 onClick={() => setIsTabContentHidden(false)}
                 key={item.value}
                 value={item.value}
-                className="group flex items-center max-md:px-0 gap-2.5 text-secondary data-[state=active]:text-primary data-[state=active]:bg-transparent data-[state=active]:shadow-none"
+                className="group flex items-center max-md:px-0 gap-2.5 text-secondary data-[state=active]:text-secondary xl:data-[state=active]:text-primary data-[state=active]:bg-transparent data-[state=active]:shadow-none"
               >
                 {item.icon}
                 {item.label}
@@ -149,7 +149,7 @@ export default function AccountPage() {
                 onClick={() => setIsTabContentHidden(false)}
                 key={item.value}
                 value={item.value}
-                className="group flex items-center max-md:px-0 gap-2.5 text-secondary data-[state=active]:text-primary data-[state=active]:bg-transparent data-[state=active]:shadow-none"
+                className="group flex items-center max-md:px-0 gap-2.5 text-secondary data-[state=active]:text-secondary xl:data-[state=active]:text-primary data-[state=active]:bg-transparent data-[state=active]:shadow-none"
               >
                 {item.icon}
                 {item.label}
@@ -184,49 +184,49 @@ const tabTriggers: TabTriggers[] = [
   {
     value: "profile",
     icon: (
-      <UserIcon className="w-6 h-6 stroke-secondary group-data-[state=active]:stroke-primary transition-colors duration-300" />
+      <UserIcon className="w-6 h-6 stroke-secondary xl:group-data-[state=active]:stroke-primary transition-colors duration-300" />
     ),
     label: "Profile",
   },
   {
     value: "orders",
     icon: (
-      <OrderIcon className="w-5 h-5 stroke-secondary group-data-[state=active]:stroke-primary transition-colors duration-300" />
+      <OrderIcon className="w-5 h-5 stroke-secondary xl:group-data-[state=active]:stroke-primary transition-colors duration-300" />
     ),
     label: "Orders",
   },
   {
     value: "notifications",
     icon: (
-      <NotificationIcon className="w-5 h-5 stroke-secondary group-data-[state=active]:stroke-primary transition-colors duration-300" />
+      <NotificationIcon className="w-5 h-5 stroke-secondary xl:group-data-[state=active]:stroke-primary transition-colors duration-300" />
     ),
     label: "Notifications",
   },
   {
     value: "addresses",
     icon: (
-      <AddressIcon className="w-5 h-5 stroke-secondary group-data-[state=active]:stroke-primary transition-colors duration-300" />
+      <AddressIcon className="w-5 h-5 stroke-secondary xl:group-data-[state=active]:stroke-primary transition-colors duration-300" />
     ),
     label: "Addresses",
   },
   {
     value: "vouchers",
     icon: (
-      <VoucherIcon className="w-5 h-5 stroke-secondary group-data-[state=active]:stroke-primary transition-colors duration-300" />
+      <VoucherIcon className="w-5 h-5 stroke-secondary xl:group-data-[state=active]:stroke-primary transition-colors duration-300" />
     ),
     label: "Vouchers",
   },
   {
     value: "rate_our_services",
     icon: (
-      <RateUsIcon className="w-5 h-5 stroke-secondary group-data-[state=active]:stroke-primary transition-colors duration-300" />
+      <RateUsIcon className="w-5 h-5 stroke-secondary xl:group-data-[state=active]:stroke-primary transition-colors duration-300" />
     ),
     label: "Rate Doak Services",
   },
   {
     value: "help_center",
     icon: (
-      <MessageIcon className="w-5 h-5 stroke-secondary group-data-[state=active]:stroke-primary transition-colors duration-300" />
+      <MessageIcon className="w-5 h-5 stroke-secondary xl:group-data-[state=active]:stroke-primary transition-colors duration-300" />
     ),
     label: "Help Center",
   },
