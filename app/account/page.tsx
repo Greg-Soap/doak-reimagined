@@ -40,6 +40,9 @@ export default function AccountPage() {
   // Update state when URL changes
   useEffect(() => {
     setActiveTab(currentTab);
+    if (currentTab) {
+      setIsTabContentHidden(false);
+    }
     if (orderIdFromUrl) {
       setSelectedOrder(orderIdFromUrl);
     }

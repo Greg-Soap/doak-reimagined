@@ -43,7 +43,7 @@ export default function ShoppingCart() {
           </div>
 
           <Button asChild variant={`black`} className="max-w-[197px] min-w-fit">
-            <Link href={`/checkout`}>Checkout</Link>
+            <Link href={`/checkout?tab=delivery`}>Checkout</Link>
           </Button>
         </div>
       </div>

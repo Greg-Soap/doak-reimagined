@@ -15,33 +15,33 @@ import {
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
 
-const formSchema = z.object({
-  first_name: z.string().min(3, {
-    message: "First name must be at least 3 characters.",
-  }),
-  last_name: z.string().min(3, {
-    message: "First name must be at least 3 characters.",
-  }),
-  email: z.string().email({
-    message: "First name must be at least 3 characters.",
-  }),
-  password: z
-    .string()
-    .min(6, { message: "Password must be at least 6 characters long." })
-    .max(16, { message: "Password too long." }),
-  confirm_password: z
-    .string()
-    .min(6, { message: "Password must be at least 6 characters long." })
-    .max(16, { message: "Password too long." }),
-  verification_code: z
-    .string()
-    .min(6, {
-      message: "Code must be at least 6 characters long.",
-    })
-    .max(6, {
-      message: "Code must be at most 6 characters long.",
+const formSchema = z
+  .object({
+    first_name: z.string().min(3, {
+      message: "First name must be at least 3 characters.",
     }),
-});
+    last_name: z.string().min(3, {
+      message: "Last name must be at least 3 characters.",
+    }),
+    email: z.string().email({
+      message: "Provide a valid email address.",
+    }),
+    password: z
+      .string()
+      .min(6, { message: "Password must be at least 6 characters long." })
+      .max(16, { message: "Password too long." }),
+    confirm_password: z
+      .string()
+      .min(6, { message: "Password must be at least 6 characters long." })
+      .max(16, { message: "Password too long." }),
+    verification_code: z.string().length(6, {
+      message: "Code must be exactly 6 characters long.",
+    }),
+  })
+  .refine((data) => data.password === data.confirm_password, {
+    message: "Passwords do not match.",
+    path: ["confirm_password"],
+  });
 
 export default function RegisterForm() {
   const [formPage, setFormPage] = useState<number>(1);
@@ -199,7 +199,7 @@ function ThirdForm({ email }: { email: string }) {
 export function AuthInputField({
   item,
   form,
-  readOnly,
+  readOnly = false,
 }: {
   item: FormInputs;
   form: any;
@@ -215,7 +215,12 @@ export function AuthInputField({
           <FormLabel className="text-xs font-medium">{item.label}</FormLabel>
           <FormControl>
             <Input
-              readOnly={readOnly || false}
+              type={
+                item.name === "password" || item.name === "confirm_password"
+                  ? "password"
+                  : "text"
+              }
+              readOnly={readOnly}
               placeholder={item.placeholder}
               {...field}
               className="h-[41px] shadow-none border-border"

@@ -40,7 +40,7 @@ export default function AuthDialog({ name }: { name: "register" | "login" }) {
             onClick={() => setActiveTab("login")}
             className="absolute top-[55px] left-[20px] bg-transparent hover:bg-transparent p-1 w-fit h-fit shadow-none"
           >
-            <ArrowLeftIcon className=" h-6 w-6 text-border" />
+            <ArrowLeftIcon className=" h-6 w-6 text-primary" />
           </Button>
         )}
 
@@ -66,7 +66,11 @@ function AuthTab({
       defaultValue={activeTab || "register"}
       className="w-full min-h-[400px]"
     >
-      <TabsList className="w-full bg-transparent">
+      <TabsList
+        className={`w-full bg-transparent ${
+          activeTab === "reset-password" ? "hidden" : "flex"
+        }`}
+      >
         {tabTriggers.map((item) => (
           <CustomTagTrigger
             key={item.name}
