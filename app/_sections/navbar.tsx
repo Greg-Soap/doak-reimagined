@@ -64,14 +64,12 @@ function NavMenu() {
       className="flex gap-4 items-center row-span-1 absolute right-0 md:relative"
       style={{ gridColumn: "3 / span 1", gridRow: "1 / span 1" }}
     >
-      <Link href={`/account?tab=notification`}>
+      <Link href={`/account?tab=notifications`}>
         <IconNotification
           notification={notification.length > 0 ? true : false}
           icon={bellIcon}
         />
       </Link>
-
-      <AccountDropDownMenu user={false} />
 
       <Link href={`/cart`}>
         <IconNotification
@@ -79,6 +77,8 @@ function NavMenu() {
           icon={cartIcon}
         />
       </Link>
+
+      <AccountDropDownMenu user={false} />
     </div>
   );
 }
