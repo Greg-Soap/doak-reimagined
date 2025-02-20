@@ -15,6 +15,9 @@ import {
 } from "@/components/ui/dropdown-menu";
 import UserIcon from "@/components/icons/user";
 import OrderIcon from "@/components/icons/order";
+import AuthDialog from "./auth-dialog";
+import { user_cart } from "../data/cart";
+import { notification } from "../data/notification";
 
 export default function Navbar() {
   return (
@@ -61,11 +64,21 @@ function NavMenu() {
       className="flex gap-4 items-center row-span-1 absolute right-0 md:relative"
       style={{ gridColumn: "3 / span 1", gridRow: "1 / span 1" }}
     >
-      <IconNotification notification icon={bellIcon} />
+      <Link href={`/account?tab=notification`}>
+        <IconNotification
+          notification={notification.length > 0 ? true : false}
+          icon={bellIcon}
+        />
+      </Link>
 
       <AccountDropDownMenu user={false} />
 
-      <IconNotification notification icon={cartIcon} />
+      <Link href={`/cart`}>
+        <IconNotification
+          notification={user_cart.length > 0 ? true : false}
+          icon={cartIcon}
+        />
+      </Link>
     </div>
   );
 }
@@ -102,18 +115,21 @@ function AccountDropDownMenu({ user }: { user: boolean }) {
           ))}
 
         <div className="flex flex-col items-center gap-2 mt-2">
-          <Button
-            variant={`black`}
-            className={`w-full h-11 ${user ? "hidden" : "flex"}`}
-          >
-            Register
-          </Button>
-          <Button
-            variant={`outline`}
-            className="border-2 border-black font-medium mt-2 w-full h-11"
-          >
-            Log Out
-          </Button>
+          {user && (
+            <Button
+              variant={`outline`}
+              className="border-2 border-black font-medium mt-2 w-full h-11"
+            >
+              Log Out
+            </Button>
+          )}
+
+          {!user && (
+            <>
+              <AuthDialog name="register" />
+              <AuthDialog name="login" />
+            </>
+          )}
         </div>
       </DropdownMenuContent>
     </DropdownMenu>
