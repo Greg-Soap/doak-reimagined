@@ -18,6 +18,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { FormatNaira } from "@/utils/format-currency";
 import CartSummary from "@/components/custom/cart-summary";
 import VoucherCodeForm from "../../components/voucher-code-form";
+import { CartTotal } from "@/utils/cart-total";
 
 const formSchema = z.object({
   card_number: z.string().min(12, {
@@ -123,7 +124,7 @@ export default function CardPaymentTab() {
 
           <VoucherCodeForm type />
 
-          <CartSummary className="ml-[0%] w-full flex md:hidden">
+          <CartSummary type="payment" className="ml-[0%] w-full flex md:hidden">
             <Button variant={`black`}>Pay {FormatNaira(3003000)}</Button>
           </CartSummary>
 
@@ -132,7 +133,7 @@ export default function CardPaymentTab() {
             variant={`black`}
             className="w-full h-11 font-bold hidden md:flex"
           >
-            Pay {FormatNaira(3000000)}
+            Pay {FormatNaira(CartTotal(2500))}
           </Button>
         </form>
       </Form>

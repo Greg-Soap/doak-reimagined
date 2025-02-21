@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Navbar from "./_sections/navbar";
 import Footer from "./_sections/footer";
+import { Toaster } from "sonner";
+import { CartProvider } from "./hooks/cart-context";
 
 export const metadata: Metadata = {
   title: "DOAK - Your Source for a Variety of Drinks",
@@ -16,14 +18,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body>
-        <Navbar />
-        <main className="flex min-h-fit flex-col items-center justify-between">
-          {children}
-        </main>
-        <Footer />
-      </body>
-    </html>
+    <CartProvider>
+      <html lang="en">
+        <body>
+          <Navbar />
+          <main className="flex min-h-fit flex-col items-center justify-between">
+            {children}
+          </main>
+          <Footer />
+          <Toaster />
+        </body>
+      </html>
+    </CartProvider>
   );
 }

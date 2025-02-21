@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 import logo from "@/assets/DOAK LOGO.png";
 import IconNotification from "../_components/icon-notification";
@@ -16,8 +18,8 @@ import {
 import UserIcon from "@/components/icons/user";
 import OrderIcon from "@/components/icons/order";
 import AuthDialog from "./auth-dialog";
-import { user_cart } from "../data/cart";
 import { notification } from "../data/notification";
+import { useCart } from "../hooks/cart-context";
 
 export default function Navbar() {
   return (
@@ -59,6 +61,8 @@ function Search() {
 }
 
 function NavMenu() {
+  const { cartItems } = useCart();
+
   return (
     <div
       className="flex gap-4 items-center row-span-1 absolute right-0 md:relative"
@@ -73,7 +77,7 @@ function NavMenu() {
 
       <Link href={`/cart`}>
         <IconNotification
-          notification={user_cart.length > 0 ? true : false}
+          notification={cartItems.length > 0 ? true : false}
           icon={cartIcon}
         />
       </Link>
@@ -143,7 +147,7 @@ const dropdownLinks = [
     name: "My Account",
   },
   {
-    href: "/account?tab-orders",
+    href: "/account?tab=orders",
     icon: <OrderIcon className="w-6 h-6 stroke-[#292D32]" />,
     name: "Orders",
   },

@@ -3,12 +3,17 @@
 import clsx from "clsx";
 import { FormatNaira } from "@/utils/format-currency";
 import VoucherCodeForm from "../../app/checkout/components/voucher-code-form";
+import { useCart } from "@/app/hooks/cart-context";
+import { CartTotal } from "@/utils/cart-total";
 
 export default function CartSummary({
   type,
   children,
   className,
 }: CartSummaryProps) {
+  const { cartItems } = useCart();
+  let delivery_fee = 2500;
+
   return (
     <div
       className={clsx(
@@ -20,13 +25,17 @@ export default function CartSummary({
     >
       <p className="text-primary text-lg font-semibold">Cart Summary</p>
 
-      <CartDetails itemCount={3} totalAmount={3000000} />
+      <CartDetails itemCount={cartItems.length} totalAmount={CartTotal()} />
 
-      <DeliveryFeeNotice />
+      <DeliveryFeeNotice
+        delivery_fee={type === "payment" ? delivery_fee : undefined}
+      />
 
       {type === "payment" && <VoucherCodeForm />}
 
-      <TotalAmount totalAmount={3000000} />
+      <TotalAmount
+        totalAmount={CartTotal(type === "payment" ? delivery_fee : undefined)}
+      />
       {children}
     </div>
   );
@@ -47,11 +56,13 @@ function CartDetails({
   );
 }
 
-function DeliveryFeeNotice() {
+function DeliveryFeeNotice({ delivery_fee }: { delivery_fee?: number }) {
   return (
-    <p className="text-xs text-primary border-b pb-6 border-border">
-      Delivery fees are not included
-    </p>
+    <div className="flex w-full items-center justify-between border-b pb-6 border-border font-medium text-sm text-primary">
+      <p>{delivery_fee ? "Delivery Fee:" : "Delivery fees are not included"}</p>
+
+      {delivery_fee && <p>{FormatNaira(delivery_fee)}</p>}
+    </div>
   );
 }
 

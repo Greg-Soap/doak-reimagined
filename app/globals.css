@@ -118,3 +118,12 @@ input[type="number"] {
 ::-webkit-scrollbar-thumb:hover {
   background: #888; /* Lighter grey */
 }
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}

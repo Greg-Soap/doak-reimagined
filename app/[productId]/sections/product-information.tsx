@@ -8,10 +8,13 @@ import { IProduct } from "@/types/products";
 import { FormatNaira } from "@/utils/format-currency";
 import clsx from "clsx";
 import QuantityControl from "@/components/custom/quantity-control";
+import { useCart } from "@/app/hooks/cart-context";
 
 export default function ProductInformation({ product }: { product: IProduct }) {
-  const [count, setCount] = useState<number>(1);
   const [sizes, setSizes] = useState<DrinkSizes[]>(drinkSizes);
+  const { addToCart, cartItems, removeFromCart } = useCart();
+
+  const cartProduct = cartItems.find((item) => item.id === product.id);
 
   function handleClick(index: number) {
     const updatedList = drinkSizes.map((item: DrinkSizes, i: number) => ({
@@ -69,7 +72,11 @@ export default function ProductInformation({ product }: { product: IProduct }) {
           <div className="flex flex-col gap-[14px]">
             <p className="text-primary font-semibold text-sm">QUANTITY:</p>
 
-            <QuantityControl count={count} setCount={setCount} type="product" />
+            <QuantityControl
+              id={product.id}
+              count={cartProduct ? cartProduct.count : 1}
+              type="product"
+            />
           </div>
 
           <div className="flex flex-col gap-[14px]">
@@ -87,12 +94,23 @@ export default function ProductInformation({ product }: { product: IProduct }) {
             </div>
           </div>
 
-          <Button
-            className="w-full h-11 px-5 py-[10px] font-bold"
-            variant={`black`}
-          >
-            Add to cart
-          </Button>
+          {cartProduct ? (
+            <Button
+              className="w-full h-11 px-5 py-[10px] font-bold border-primary bg-transparent"
+              variant={`outline`}
+              onClick={() => removeFromCart(product.id)}
+            >
+              Remove from cart
+            </Button>
+          ) : (
+            <Button
+              className="w-full h-11 px-5 py-[10px] font-bold"
+              variant={`black`}
+              onClick={() => addToCart(product.id)}
+            >
+              Add to cart
+            </Button>
+          )}
         </div>
       </div>
 

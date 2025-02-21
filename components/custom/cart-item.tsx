@@ -1,12 +1,12 @@
 import Image from "next/image";
 import { FormatNaira } from "@/utils/format-currency";
-import { IProduct } from "@/types/products";
+import { IProductWithCount } from "@/app/hooks/cart-context";
 
 export default function CartItems({
   item,
   type = false,
 }: {
-  item: IProduct;
+  item: IProductWithCount;
   type?: boolean;
 }) {
   return (
@@ -29,7 +29,7 @@ export default function CartItems({
         </div>
       </div>
 
-      <p className="hidden md:flex text-primary">x10</p>
+      <p className="hidden md:flex text-primary">x{item.count}</p>
 
       <p
         className={`font-semibold text-xs md:text-base text-primary ${

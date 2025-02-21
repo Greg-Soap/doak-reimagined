@@ -1,19 +1,24 @@
+"use client";
+
 import { clsx } from "clsx";
 import { Button } from "../ui/button";
+import { useCart } from "@/app/hooks/cart-context";
 
 export default function QuantityControl({
   type,
+  id,
   count,
-  setCount,
 }: {
   type: "cart" | "product";
+  id: number;
   count: number;
-  setCount: (count: number) => void;
 }) {
+  const { decreaseProductCount, addToCart } = useCart();
+
   return (
     <div className="flex items-center gap-4 md:gap-5">
       <Button
-        onClick={() => setCount(count - 1)}
+        onClick={() => decreaseProductCount(id)}
         disabled={count === 1}
         className={clsx(
           "text-primary bg-transparent hover:bg-transparent shadow-none",
@@ -29,7 +34,7 @@ export default function QuantityControl({
         {count}
       </p>
       <Button
-        onClick={() => setCount(count + 1)}
+        onClick={() => addToCart(id)}
         className={clsx(
           "text-primary bg-transparent hover:bg-transparent shadow-none",
           {

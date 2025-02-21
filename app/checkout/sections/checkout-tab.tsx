@@ -66,6 +66,7 @@ export default function CheckoutTab() {
       </div>
 
       <CartSummary
+        type={activeTab === "payment" ? "payment" : undefined}
         className={`hidden md:flex ${
           activeTab === "payment" ? "w-full" : "ml-[0%]"
         }`}

@@ -1,13 +1,13 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { product_list } from "@/app/data/product-list";
 import { IProduct } from "@/types/products";
 import { FormatNaira } from "@/utils/format-currency";
 import { useRouter } from "next/navigation";
 import CartItems from "@/components/custom/cart-item";
 import AddressDetails from "@/components/custom/address-details";
 import { street } from "@/app/data/address";
+import { IProductWithCount, useCart } from "@/app/hooks/cart-context";
 
 export default function SummaryTab({
   setActiveTab,
@@ -15,6 +15,7 @@ export default function SummaryTab({
   setActiveTab: (activeTab: string) => void;
 }) {
   const router = useRouter();
+  const { cartItems } = useCart();
 
   return (
     <>
@@ -24,7 +25,7 @@ export default function SummaryTab({
         name="Cart Items"
         editFunction={() => router.push(`/cart`)}
       >
-        {product_list.slice(0, 3).map((item: IProduct, index: number) => (
+        {cartItems.map((item: IProductWithCount, index: number) => (
           <CartItems key={index} item={item} />
         ))}
       </SummaryTabSections>

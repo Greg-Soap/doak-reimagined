@@ -11,12 +11,12 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import Image from "next/image";
-import { useState } from "react";
-import { product_list } from "@/app/data/product-list";
 import { FormatNaira } from "@/utils/format-currency";
 import CartSummary from "../../../components/custom/cart-summary";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { useCart } from "@/app/hooks/cart-context";
+import { CartTotal } from "@/utils/cart-total";
 
 export default function ShoppingCart() {
   return (
@@ -39,7 +39,7 @@ export default function ShoppingCart() {
         >
           <div className="flex flex-col gap-2">
             <p className="text-primary text-xs">Total</p>
-            <p className="text-xl font-extrabold text-primary">N3,300,000.00</p>
+            <p className="text-xl font-extrabold text-primary">{CartTotal()}</p>
           </div>
 
           <Button asChild variant={`black`} className="max-w-[197px] min-w-fit">
@@ -52,10 +52,10 @@ export default function ShoppingCart() {
 }
 
 function CartTable() {
-  const [count, setCount] = useState<number>(1);
+  const { cartItems } = useCart();
 
   return (
-    <div className="col-span-4 lg:col-span-3 max-h-fit md:border border-border md:rounded-[10px] px-2 md:px-0">
+    <div className="col-span-4 lg:col-span-3 max-h-fit md:border border-border md:rounded-[10px] px-2 md:px-0 overflow-hidden">
       <Table className="w-full">
         <TableHeader className="w-full px-7 py-4 border-b border-border">
           <TableRow className="hover:bg-transparent">
@@ -69,53 +69,79 @@ function CartTable() {
             ))}
           </TableRow>
         </TableHeader>
-        <TableBody className="w-full">
-          <TableRow className="hover:bg-transparent">
-            <TableCell className="flex flex-col gap-2 max-w-[295px]">
-              <div className="flex gap-5">
-                <Image
-                  src={product_list[0].image}
-                  alt="Product"
-                  width={85}
-                  height={85}
-                  className="rounded-[5px] w-[74px] h-[74px] md:w-[85px] md:h-[85px]"
-                />
-
-                <div className="flex flex-col gap-2.5">
-                  <p className="text-xs md:text-base text-primary">
-                    {product_list[0].name}
-                  </p>
-                  <p className="hidden md:flex text-primary text-xs font-bold">
-                    70cl
-                  </p>
-                  <p className="flex md:hidden text-primary text-xs font-bold">
-                    {product_list[0].discount_price
-                      ? FormatNaira(product_list[0].discount_price)
-                      : FormatNaira(product_list[0].price)}
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex md:hidden items-center gap-2">
-                <TrashIcon className="w-6 h-6 stroke-[#FF8981]" />
-                <p className="text-sm text-[#FF8981] leading-none">Delete</p>
-              </div>
-            </TableCell>
-            <TableCell className="hidden md:table-cell text-primary">
-              Paid
-            </TableCell>
-            <TableCell>
-              <QuantityControl count={count} setCount={setCount} type="cart" />
-            </TableCell>
-            <TableCell className="hidden md:table-cell text-primary font-semibold">
-              $250.00
-            </TableCell>
-            <TableCell className="hidden md:table-cell">
-              <TrashIcon className="w-6 h-6 stroke-[#FF3426]" />
-            </TableCell>
-          </TableRow>
-        </TableBody>
+        {cartItems.length > 0 ? <TableContents /> : undefined}
       </Table>
+
+      {cartItems.length > 0 ? undefined : <EmptyCart />}
+    </div>
+  );
+}
+
+function TableContents() {
+  const { cartItems, removeFromCart } = useCart();
+
+  return (
+    <TableBody className="w-full">
+      {cartItems.map((item) => (
+        <TableRow key={item.name} className="hover:bg-transparent">
+          <TableCell className="flex flex-col gap-2 max-w-[295px]">
+            <div className="flex gap-5">
+              <Image
+                src={item.image}
+                alt={item.name}
+                width={85}
+                height={85}
+                className="rounded-[5px] w-[74px] h-[74px] md:w-[85px] md:h-[85px]"
+              />
+
+              <div className="flex flex-col gap-2.5">
+                <p className="text-xs md:text-base text-primary">{item.name}</p>
+                <p className="hidden md:flex text-primary text-xs font-bold">
+                  70cl
+                </p>
+                <p className="flex md:hidden text-primary text-xs font-bold">
+                  {item.discount_price
+                    ? FormatNaira(item.count * item.discount_price)
+                    : FormatNaira(item.count * item.price)}
+                </p>
+              </div>
+            </div>
+
+            <div className="flex md:hidden items-center gap-2">
+              <TrashIcon className="w-6 h-6 stroke-[#FF8981]" />
+              <p className="text-sm text-[#FF8981] leading-none">Delete</p>
+            </div>
+          </TableCell>
+          <TableCell className="hidden md:table-cell text-primary">
+            Paid
+          </TableCell>
+          <TableCell>
+            <QuantityControl count={item.count} id={item.id} type="cart" />
+          </TableCell>
+          <TableCell className="hidden md:table-cell text-primary font-semibold">
+            {item.discount_price
+              ? FormatNaira(item.count * item.discount_price)
+              : FormatNaira(item.count * item.price)}
+          </TableCell>
+          <TableCell className="hidden md:table-cell">
+            <TrashIcon
+              onClick={() => removeFromCart(item.id)}
+              className="w-6 h-6 stroke-[#FF3426]"
+            />
+          </TableCell>
+        </TableRow>
+      ))}
+    </TableBody>
+  );
+}
+
+function EmptyCart() {
+  return (
+    <div className="min-w-full h-[400px] flex flex-col gap-2 items-center justify-center">
+      <p className="text-primary italic">-Your cart is currently empty-</p>
+      <Button variant={`black`} asChild>
+        <Link href={`/#products`}>Continue Shopping</Link>
+      </Button>
     </div>
   );
 }

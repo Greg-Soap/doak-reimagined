@@ -24,6 +24,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import VoucherCodeForm from "../../components/voucher-code-form";
+import { CartTotal } from "@/utils/cart-total";
 
 const formSchema = z.object({
   sender_name: z.string().min(6, {
@@ -39,7 +40,7 @@ export default function TransferTab() {
     resolver: zodResolver(formSchema),
     defaultValues: {
       sender_name: "",
-      amount_sent: FormatNaira(3000300),
+      amount_sent: FormatNaira(CartTotal(2500)),
     },
   });
 
@@ -53,7 +54,7 @@ export default function TransferTab() {
 
       <div className="flex flex-col gap-4 md:items-center w-full">
         <p className="text-primary text-lg">
-          Transfer <strong>{FormatNaira(3000300)}</strong> to:
+          Transfer <strong>{FormatNaira(CartTotal(2500))}</strong> to:
         </p>
 
         <div className="flex flex-col items-center p-[14px] rounded-[10px] bg-[#F5F5F5] gap-2.5 w-full md:w-[284px]">
