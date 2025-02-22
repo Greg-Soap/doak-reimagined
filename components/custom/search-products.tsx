@@ -132,7 +132,11 @@ export default function SearchProducts() {
           ) : (
             <>
               {results.map((item) => (
-                <ResultCard key={item.id} data={item} />
+                <ResultCard
+                  key={item.id}
+                  data={item}
+                  setIsClicked={setIsClicked}
+                />
               ))}
             </>
           )}
@@ -142,10 +146,17 @@ export default function SearchProducts() {
   );
 }
 
-function ResultCard({ data }: { data: IProduct }) {
+function ResultCard({
+  data,
+  setIsClicked,
+}: {
+  data: IProduct;
+  setIsClicked: (isClicked: boolean) => void;
+}) {
   return (
     <Link
       href={`/${data.id}`}
+      onClick={() => setIsClicked(false)}
       className="w-full flex items-center justify-between"
     >
       <div className="flex items-center gap-2 w-2/3">
