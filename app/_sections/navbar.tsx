@@ -20,6 +20,7 @@ import OrderIcon from "@/components/icons/order";
 import AuthDialog from "./auth-dialog";
 import { notification } from "../data/notification";
 import { useCart } from "../hooks/cart-context";
+import SearchProducts from "@/components/custom/search-products";
 
 export default function Navbar() {
   return (
@@ -28,7 +29,7 @@ export default function Navbar() {
         <Link href="/">
           <Logo />
         </Link>
-        <Search />
+        <SearchProducts />
         <NavMenu />
       </nav>
     </header>
@@ -40,23 +41,6 @@ function Logo() {
     <>
       <Image src={logo} alt="logo" width={120} height={40} />
     </>
-  );
-}
-
-function Search() {
-  return (
-    <div className="lg:max-w-[520px] w-full col-span-3 flex items-center justify-between bg-[#FAFAFA] p-[5px] pl-[14px] border border-input rounded-lg md:max-w-[375px]">
-      <div className="flex items-center w-full">
-        <Image src={searchIcon} alt="search" className="w-5 h-5 flex" />
-        <Input
-          placeholder="Search drinks in any category"
-          className="border-none outline-none bg-transparent shadow-none focus-visible:ring-0 "
-        />
-      </div>
-      <Button type="submit" className="bg-black hidden lg:flex">
-        Search
-      </Button>
-    </div>
   );
 }
 

@@ -11,7 +11,7 @@ export default function Testimonial() {
   return (
     <section className="max-w-[1400px] w-full flex justify-center border-y border-border pt-10 pb-20 bg-testimonial bg-cover bg-center bg-no-repeat overflow-hidden">
       <div className="container flex flex-col w-full gap-8 items-center">
-        <div className="flex flex-col items-center gap-1">
+        <div className="flex flex-col items-center gap-1 bg-white">
           <p className="text-primary text-sm">TESTIMONIALS</p>
           <p className="text-3xl font-bold text-primary max-w-[452px] text-center">
             We love! to keep our customers happy
