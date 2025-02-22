@@ -119,11 +119,11 @@ function TableContents() {
               </div>
             </div>
 
-            <div className="flex md:hidden items-center gap-2">
-              <TrashIcon
-                onClick={() => removeFromCart(item.id)}
-                className="w-6 h-6 stroke-[#FF8981]"
-              />
+            <div
+              onClick={() => removeFromCart(item.id)}
+              className="flex md:hidden items-center gap-2"
+            >
+              <TrashIcon className="w-6 h-6 stroke-[#FF8981]" />
               <p className="text-sm text-[#FF8981] leading-none">Delete</p>
             </div>
           </TableCell>
