@@ -19,6 +19,8 @@ import { useCart } from "@/app/hooks/cart-context";
 import { CartTotal } from "@/utils/cart-total";
 
 export default function ShoppingCart() {
+  const { cartItems } = useCart();
+
   return (
     <section className="md:container w-full flex flex-col gap-5 lg:gap-3 md:py-16">
       <p className="text-xl md:text-[32px] font-semibold text-primary pl-2 md:pl-0 py-[21px] md:h-fit bg-[#F7F7F7] md:bg-transparent">
@@ -29,23 +31,33 @@ export default function ShoppingCart() {
         <CartTable />
 
         <CartSummary className="hidden md:flex">
-          <Button asChild variant={`black`} className={`flex`}>
-            <Link href={`/checkout?checkoutTab=delivery`}>Check Out</Link>
-          </Button>
+          {cartItems.length > 0 && (
+            <Button asChild variant={`black`} className={`flex`}>
+              <Link href={`/checkout?checkoutTab=delivery`}>Check Out</Link>
+            </Button>
+          )}
         </CartSummary>
 
-        <div
-          className={`flex md:hidden items-center justify-between h-[96px] w-full border-t border-border bg-[#F7F7F7] col-span-4 px-5`}
-        >
-          <div className="flex flex-col gap-2">
-            <p className="text-primary text-xs">Total</p>
-            <p className="text-xl font-extrabold text-primary">{CartTotal()}</p>
-          </div>
+        {cartItems.length > 0 && (
+          <div
+            className={`flex md:hidden items-center justify-between h-[96px] w-full border-t border-border bg-[#F7F7F7] col-span-4 px-5`}
+          >
+            <div className="flex flex-col gap-2">
+              <p className="text-primary text-xs">Total</p>
+              <p className="text-xl font-extrabold text-primary">
+                {FormatNaira(CartTotal())}
+              </p>
+            </div>
 
-          <Button asChild variant={`black`} className="max-w-[197px] min-w-fit">
-            <Link href={`/checkout?tab=delivery`}>Checkout</Link>
-          </Button>
-        </div>
+            <Button
+              asChild
+              variant={`black`}
+              className="max-w-[197px] min-w-fit"
+            >
+              <Link href={`/checkout?tab=delivery`}>Checkout</Link>
+            </Button>
+          </div>
+        )}
       </div>
     </section>
   );
@@ -112,8 +124,10 @@ function TableContents() {
               <p className="text-sm text-[#FF8981] leading-none">Delete</p>
             </div>
           </TableCell>
-          <TableCell className="hidden md:table-cell text-primary">
-            Paid
+          <TableCell className="hidden md:table-cell text-primary font-medium">
+            {item.discount_price
+              ? FormatNaira(item.discount_price)
+              : FormatNaira(item.price)}
           </TableCell>
           <TableCell>
             <QuantityControl count={item.count} id={item.id} type="cart" />

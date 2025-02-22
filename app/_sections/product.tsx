@@ -6,7 +6,10 @@ import { product_list } from "../data/product-list";
 
 export default function Product() {
   return (
-    <section className="py-28 container flex flex-col lg:flex-row gap-10">
+    <section
+      id="products"
+      className="py-28 container flex flex-col lg:flex-row gap-10"
+    >
       <FilterBar />
       <div className="flex flex-col w-full h-fit items-center gap-10">
         <Products />
